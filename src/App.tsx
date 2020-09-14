@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useSelector } from "react-redux";
+import "./App.css";
+import Reminder from "./components/Reminder";
+import ReminderInput from "./components/ReminderInput";
+import { remindersState } from "./reducers/remindersReducers";
 
 function App() {
+  const reminders = useSelector<remindersState, remindersState["reminders"]>(
+    (state) => state.reminders
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Reminders
+      <ReminderInput />
+      {/* <hr /> */}
+      <ul>
+        {reminders.map((r) => (
+          <Reminder r={r}  key={r.reminder}/>
+        ))}
+      </ul>
     </div>
   );
 }
