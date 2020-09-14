@@ -1,12 +1,17 @@
 import React from "react";
 import { IReminder } from "../reducers/remindersReducers";
 import { useDispatch } from "react-redux";
-import { handleSetReminder } from "../actions/remindersActions";
+import { handleDeleteReminder, handleSetReminder } from "../actions/remindersActions";
 
 function Reminder({ r }: { r: IReminder }) {
   const dispatch = useDispatch()
+
   const setReminder = () => {
     dispatch(handleSetReminder(r));
+  }
+
+  const deleteReminder = () => {
+    dispatch(handleDeleteReminder(r))
   }
 
   return (
@@ -15,7 +20,7 @@ function Reminder({ r }: { r: IReminder }) {
         {r.reminder}
         {r.completed ? " - completed " : " - not completed "}
         <button onClick={setReminder}>complete</button>
-        <button>delete</button>
+        <button onClick={deleteReminder}>delete</button>
       </li>
     </>
   );
