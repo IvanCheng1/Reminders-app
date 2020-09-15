@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { rootState } from "../reducers";
+// import { rootState } from "../reducers";
 import { IReminder } from "../reducers/remindersReducer";
 
 export const ADD_REMINDER = "ADD_REMINDER";
@@ -12,10 +12,10 @@ interface addReminderAction {
   reminder: IReminder;
 }
 
-interface getRemindersAction {
-  type: typeof GET_REMINDERS;
-  // reminder: IReminder[];
-}
+// interface getRemindersAction {
+//   type: typeof GET_REMINDERS;
+//   // reminder: IReminder[];
+// }
 
 interface setReminderAction {
   type: typeof SET_REMINDER;
@@ -34,12 +34,12 @@ const addReminderAction = (reminder: string): ReminderActionTypes => {
   };
 };
 
-const getRemindersAction = (): ReminderActionTypes => {
-  return {
-    type: GET_REMINDERS,
-    // reminder: []
-  }
-}
+// const getRemindersAction = (): ReminderActionTypes => {
+//   return {
+//     type: GET_REMINDERS,
+//     // reminder: []
+//   }
+// }
 
 const setReminderAction = (reminder: IReminder): ReminderActionTypes => {
   return {
@@ -61,11 +61,23 @@ export const handleAddReminder = (reminder: string) => {
   }
 }
 
-export const handleGetReminders = () => {
+export const handleSetReminder = (reminder: IReminder) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
-    dispatch(getRemindersAction())
+    dispatch(setReminderAction(reminder))
   }
 }
+
+export const handleDeleteReminder = (reminder: IReminder) => {
+  return (dispatch: Dispatch<ReminderActionTypes>) => {
+    dispatch(deleteReminderAction(reminder))
+  }
+}
+
+// export const handleGetReminders = () => {
+//   return (dispatch: Dispatch<ReminderActionTypes>) => {
+//     dispatch(getRemindersAction())
+//   }
+// }
 
 // export const handleAddReminderWState = (reminder: string) => {
 //   return (dispatch: Dispatch<ReminderActionTypes>, getState: () => rootState) => {
@@ -75,6 +87,6 @@ export const handleGetReminders = () => {
 
 export type ReminderActionTypes =
   | addReminderAction
-  | getRemindersAction
+  // | getRemindersAction
   | setReminderAction
   | deleteReminderAction;

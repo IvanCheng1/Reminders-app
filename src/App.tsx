@@ -9,7 +9,6 @@ import { bindActionCreators } from "redux";
 import { remindersState } from "./store/reducers/remindersReducer";
 import {
   handleAddReminder,
-  handleGetReminders,
   ReminderActionTypes,
 } from "./store/actions/remindersActions";
 import { ThunkDispatch } from "redux-thunk";
@@ -25,12 +24,6 @@ class App extends React.Component<Props, AppState> {
   // reminders = useSelector<remindersState, remindersState["reminders"]>(
   //   (state) => state.reminders
   // );
-
-  componentDidMount = () => {
-    // handleGetReminders()
-  };
-
-  // reminders = [];
 
   handleClickAddReminder = (reminder: string): void => {
     this.props.handleAddReminder(reminder);

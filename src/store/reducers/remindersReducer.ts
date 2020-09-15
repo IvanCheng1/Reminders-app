@@ -1,7 +1,7 @@
 import {
   ADD_REMINDER,
   DELETE_REMINDER,
-  GET_REMINDERS,
+  // GET_REMINDERS,
   ReminderActionTypes,
   SET_REMINDER,
 } from "../actions/remindersActions";
@@ -26,11 +26,11 @@ export default function remindersReducer(
   action: ReminderActionTypes
 ): remindersState {
   switch (action.type) {
-    case GET_REMINDERS:
-      console.log(GET_REMINDERS, state);
-      return {
-        ...state,
-      }
+    // case GET_REMINDERS:
+    //   console.log(GET_REMINDERS, state);
+    //   return {
+    //     ...state,
+    //   }
     case ADD_REMINDER:
       console.log(ADD_REMINDER, state);
       return {
@@ -56,8 +56,8 @@ export default function remindersReducer(
       console.log(DELETE_REMINDER, state);
       return {
         ...state,
-        reminders: state.reminders.filter((r) => r !== action.reminder)
-      }
+        reminders: state.reminders.filter((r) => r !== action.reminder),
+      };
     default:
       console.log("default case");
       return state;
