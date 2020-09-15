@@ -1,17 +1,22 @@
 import React, { ChangeEvent } from "react";
-import { useDispatch } from "react-redux";
-import { handleAddReminder } from "../actions/remindersActions";
+// import { useDispatch } from "react-redux";
+// import { handleAddReminder } from "../store/actions/remindersActions";
 
-function ReminderInput() {
+interface IProps {
+  handleClickAddReminder: (reminder: string) => void
+}
+
+function ReminderInput({handleClickAddReminder}: IProps) {
   const [reminder, setReminder] = React.useState("");
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const updateReminder = (e: ChangeEvent<HTMLInputElement>): void => {
     setReminder(e.target.value);
   };
 
   const addReminder = (): void => {
-    dispatch(handleAddReminder(reminder));
+    // dispatch(handleAddReminder(reminder));
+    handleClickAddReminder(reminder)
     setReminder("");
   };
 

@@ -1,6 +1,7 @@
 import {
   ADD_REMINDER,
   DELETE_REMINDER,
+  GET_REMINDERS,
   ReminderActionTypes,
   SET_REMINDER,
 } from "../actions/remindersActions";
@@ -20,11 +21,16 @@ const initialState = {
   reminders: [],
 };
 
-export default function remindersReducers(
+export default function remindersReducer(
   state: remindersState = initialState,
   action: ReminderActionTypes
-) {
+): remindersState {
   switch (action.type) {
+    case GET_REMINDERS:
+      console.log(GET_REMINDERS, state);
+      return {
+        ...state,
+      }
     case ADD_REMINDER:
       console.log(ADD_REMINDER, state);
       return {
