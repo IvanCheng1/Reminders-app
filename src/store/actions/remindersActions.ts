@@ -27,10 +27,10 @@ interface deleteReminderAction {
   reminder: IReminder;
 }
 
-const addReminderAction = (reminder: string): ReminderActionTypes => {
+const addReminderAction = (reminder: string, forList: string): ReminderActionTypes => {
   return {
     type: ADD_REMINDER,
-    reminder: { reminder, completed: false },
+    reminder: { reminder, completed: false, for: forList },
   };
 };
 
@@ -55,9 +55,9 @@ const deleteReminderAction = (reminder: IReminder): ReminderActionTypes => {
   };
 };
 
-export const handleAddReminder = (reminder: string) => {
+export const handleAddReminder = (reminder: string, forList: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
-    dispatch(addReminderAction(reminder))
+    dispatch(addReminderAction(reminder, forList))
   }
 }
 

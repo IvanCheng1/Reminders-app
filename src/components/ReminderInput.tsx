@@ -1,37 +1,70 @@
 import React, { ChangeEvent } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import {
+  handleAddReminder,
+  ReminderActionTypes,
+} from "../store/actions/remindersActions";
+import { rootState } from "../store/reducers";
 // import { useDispatch } from "react-redux";
 // import { handleAddReminder } from "../store/actions/remindersActions";
 
 interface IProps {
-  handleClickAddReminder: (reminder: string) => void
+  currentList: string;
 }
 
-function ReminderInput({handleClickAddReminder}: IProps) {
+type Props = IProps & LinkStateProps & LinkDispatchProps;
+
+function ReminderInput({ handleAddReminder, currentList }: Props) {
   const [reminder, setReminder] = React.useState("");
-  // const dispatch = useDispatch();
 
   const updateReminder = (e: ChangeEvent<HTMLInputElement>): void => {
     setReminder(e.target.value);
   };
 
   const addReminder = (): void => {
-    // dispatch(handleAddReminder(reminder));
-    handleClickAddReminder(reminder)
-    setReminder("");
+    if (reminder === "") {
+      alert("Please enter a reminder");
+    } else {
+      handleAddReminder(reminder, currentList);
+      setReminder("");
+    }
   };
 
   return (
     <>
-      <input
-        onChange={updateReminder}
-        value={reminder}
-        type="text"
-        name="reminder"
-        placeholder="reminder"
-      />
-      <button onClick={addReminder}>add reminder</button>
+      <div>
+        <h6>reminder input</h6>
+        <input
+          onChange={updateReminder}
+          value={reminder}
+          type="text"
+          name="reminder"
+          placeholder="reminder"
+        />
+        <button onClick={addReminder}>add reminder</button>
+      </div>
     </>
   );
 }
 
-export default ReminderInput;
+interface LinkStateProps {}
+
+interface LinkDispatchProps {
+  handleAddReminder: (reminder: string, forList: string) => void;
+}
+
+const mapStateToProps = (
+  state: rootState,
+  ownProps: IProps
+): LinkStateProps => ({});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, ReminderActionTypes>,
+  ownProps: IProps
+): LinkDispatchProps => ({
+  handleAddReminder: bindActionCreators(handleAddReminder, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReminderInput);

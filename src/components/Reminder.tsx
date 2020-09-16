@@ -9,30 +9,20 @@ import {
 } from "../store/actions/remindersActions";
 import { rootState } from "../store/reducers";
 import { IReminder } from "../store/reducers/remindersReducer";
-// import { useDispatch } from "react-redux";
-// import { handleDeleteReminder, handleSetReminder } from "../store/actions/remindersActions";
 
 interface ReminderProps {
   r: IReminder;
 }
 
-interface ReminderState {}
-
 type Props = ReminderProps & LinkStateProps & LinkDispatchProps;
 
 function Reminder({ r, handleSetReminder, handleDeleteReminder }: Props) {
-  // const dispatch = useDispatch()
-
   const setReminder = () => {
-    // dispatch(handleSetReminder(r));
-    // console.log("setting the reminder")
     handleSetReminder(r);
-    // console.log("Done setting the reminder")
   };
 
   const deleteReminder = () => {
-    handleDeleteReminder(r)
-    // dispatch(handleDeleteReminder(r))
+    handleDeleteReminder(r);
   };
 
   return (
@@ -68,5 +58,3 @@ const mapDispatchToProps = (
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reminder);
-
-// export default Reminder;

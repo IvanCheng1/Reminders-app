@@ -11,6 +11,7 @@ export interface IReminder {
   // dateCreated: number
   // dateModified: number
   completed: boolean;
+  for: string;
 }
 
 export interface remindersState {

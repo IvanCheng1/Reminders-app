@@ -12,34 +12,56 @@ import {
   ReminderActionTypes,
 } from "./store/actions/remindersActions";
 import { ThunkDispatch } from "redux-thunk";
+import ListInput from "./components/ListInput";
+import { listState } from "./store/reducers/listReducer";
 // import { remindersState } from "./store/reducers/remindersReducer";
 
 interface AppProps {}
 
-interface AppState {}
+interface AppState {
+  currentList: string;
+}
 
 type Props = AppProps & LinkStateProps & LinkDispatchProps;
 
 class App extends React.Component<Props, AppState> {
-  // reminders = useSelector<remindersState, remindersState["reminders"]>(
-  //   (state) => state.reminders
-  // );
+  state: AppState = {
+    currentList: "",
+  };
 
-  handleClickAddReminder = (reminder: string): void => {
-    this.props.handleAddReminder(reminder);
+  // handleClickAddReminder = (reminder: string): void => {
+  //   this.props.handleAddReminder(reminder);
+  // };
+
+  handleChangeList = (nameOfList: string): void => {
+    this.setState({
+      currentList: nameOfList,
+    });
   };
 
   render() {
-    const { reminders } = this.props;
+    const { reminders, lists } = this.props;
+    const { currentList } = this.state;
     return (
       <div className="App">
-        Reminders
-        <ReminderInput handleClickAddReminder={this.handleClickAddReminder} />
+        <h1>Reminders</h1>
+        <h4>Lists</h4>
+        <ListInput />
+        <div>Currently showing {currentList}</div>
+        {lists.lists.map((l) => (
+          <button onClick={() => this.handleChangeList(l.name)} key={l.name}>
+            {l.name}
+          </button>
+        ))}
+        <ReminderInput currentList={currentList} />
+        <h4>Reminders</h4>
         <ul>
-          {reminders.reminders.map((r) => (
-            <Reminder r={r} key={r.reminder} />
-            // <Reminder r={r} />
-          ))}
+          {reminders.reminders
+            .filter((r) => r.for === currentList)
+            .map((r) => (
+              <Reminder r={r} key={r.reminder} />
+              // <Reminder r={r} />
+            ))}
         </ul>
       </div>
     );
@@ -48,10 +70,11 @@ class App extends React.Component<Props, AppState> {
 
 interface LinkStateProps {
   reminders: remindersState;
+  lists: listState;
 }
 
 interface LinkDispatchProps {
-  handleAddReminder: (reminder: string) => void;
+  // handleAddReminder: (reminder: string) => void;
 }
 
 const mapStateToProps = (
@@ -59,13 +82,14 @@ const mapStateToProps = (
   ownProps: AppProps
 ): LinkStateProps => ({
   reminders: state.reminders,
+  lists: state.lists,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, ReminderActionTypes>,
   ownProps: AppProps
 ): LinkDispatchProps => ({
-  handleAddReminder: bindActionCreators(handleAddReminder, dispatch),
+  // handleAddReminder: bindActionCreators(handleAddReminder, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
