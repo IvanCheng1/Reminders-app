@@ -1,4 +1,4 @@
-import { ADD_LIST, ListActionTypes } from "../actions/listActions";
+import { ADD_LIST, DELETE_LIST, ListActionTypes } from "../actions/listActions";
 
 export interface IList {
   name: string;
@@ -25,6 +25,12 @@ export default function listReducer(
         ...state,
         lists: [...state.lists, action.list],
       };
+    case DELETE_LIST:
+      console.log(DELETE_LIST, state);
+      return {
+        ...state,
+        lists: state.lists.filter((l) => l.name !== action.list.name)
+      }
     default:
       console.log("default case");
       return state;

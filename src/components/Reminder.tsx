@@ -10,31 +10,63 @@ import {
 import { rootState } from "../store/reducers";
 import { IReminder } from "../store/reducers/remindersReducer";
 
-interface ReminderProps {
+interface IProps {
   r: IReminder;
 }
 
-type Props = ReminderProps & LinkStateProps & LinkDispatchProps;
+interface IState {
+  editing: boolean;
+}
 
-function Reminder({ r, handleSetReminder, handleDeleteReminder }: Props) {
-  const setReminder = () => {
-    handleSetReminder(r);
+type Props = IProps & LinkStateProps & LinkDispatchProps;
+
+class Reminder extends React.Component<Props, IState> {
+  state: IState = {
+    editing: false,
   };
 
-  const deleteReminder = () => {
-    handleDeleteReminder(r);
+  setReminder = () => {
+    this.props.handleSetReminder(this.props.r);
   };
 
-  return (
-    <>
-      <li>
-        {r.reminder}
-        {r.completed ? " - completed " : " - not completed "}
-        <button onClick={setReminder}>complete</button>
-        <button onClick={deleteReminder}>delete</button>
-      </li>
-    </>
-  );
+  deleteReminder = () => {
+    this.props.handleDeleteReminder(this.props.r);
+  };
+
+  editReminder = () => {
+    this.setState((prev) => ({
+      editing: !prev.editing,
+    }));
+  };
+
+  render() {
+    const { r } = this.props;
+    const { editing } = this.state;
+
+    return (
+      <>
+        <li>
+          <input
+            type="checkbox"
+            onClick={() => this.setReminder()}
+            defaultChecked={r.completed}
+          />
+          {r.reminder}
+          {r.completed ? " - completed " : " - not completed "}
+          {/* <button onClick={this.setReminder}>complete</button> */}
+
+          {editing ? (
+            <>
+              <button onClick={this.deleteReminder}>delete</button>
+              <button onClick={this.editReminder}>save</button>
+            </>
+          ) : (
+            <button onClick={this.editReminder}>edit</button>
+          )}
+        </li>
+      </>
+    );
+  }
 }
 
 interface LinkStateProps {}
@@ -46,12 +78,12 @@ interface LinkDispatchProps {
 
 const mapStateToProps = (
   state: rootState,
-  ownProps: ReminderProps
+  ownProps: IProps
 ): LinkStateProps => ({});
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, ReminderActionTypes>,
-  ownProps: ReminderProps
+  ownProps: IProps
 ): LinkDispatchProps => ({
   handleSetReminder: bindActionCreators(handleSetReminder, dispatch),
   handleDeleteReminder: bindActionCreators(handleDeleteReminder, dispatch),

@@ -24,26 +24,39 @@ function ReminderInput({ handleAddReminder, currentList }: Props) {
   };
 
   const addReminder = (): void => {
+    if (!currentList) {
+      alert("Please create a list first");
+      return;
+    }
+
     if (reminder === "") {
       alert("Please enter a reminder");
-    } else {
-      handleAddReminder(reminder, currentList);
-      setReminder("");
+      return;
     }
+    handleAddReminder(reminder, currentList);
+    setReminder("");
   };
 
   return (
     <>
       <div>
-        <h6>reminder input</h6>
-        <input
-          onChange={updateReminder}
-          value={reminder}
-          type="text"
-          name="reminder"
-          placeholder="reminder"
-        />
-        <button onClick={addReminder}>add reminder</button>
+        {/* <h6>reminder input</h6> */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addReminder();
+          }}
+        >
+          <input
+            onChange={updateReminder}
+            value={reminder}
+            type="text"
+            name="reminder"
+            placeholder="Create Reminder"
+          />
+          <input type="submit" value="Create Reminder" />
+        </form>
+        {/* <button onClick={addReminder}>add reminder</button> */}
       </div>
     </>
   );

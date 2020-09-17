@@ -4,14 +4,15 @@ import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { handleAddList, ListActionTypes } from "../store/actions/listActions";
 import { rootState } from "../store/reducers";
-// import { useDispatch } from "react-redux";
-// import { handleAddReminder } from "../store/actions/remindersActions";
 
-interface ListInputProps {}
+interface IProps {
+  updateCurrentList: (newList: string) => void;
+  currentList: string;
+}
 
-type Props = ListInputProps & LinkStateProps & LinkDispatchProps;
+type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-function ListInput({ handleAddList }: Props) {
+function ListInput({ handleAddList, updateCurrentList }: Props) {
   const [list, setList] = React.useState("");
 
   const updateList = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -19,24 +20,37 @@ function ListInput({ handleAddList }: Props) {
   };
 
   const addList = (): void => {
-    // dispatch(handleAddReminder(reminder));
-    // handleClickAddReminder(list);
-    handleAddList(list)
+    if (list === "") {
+      alert("Please enter a list");
+      return;
+    }
+    handleAddList(list);
     setList("");
+
+    // check if a list is selected
+    updateCurrentList(list);
   };
 
   return (
     <>
       <div>
-        <h6>list input</h6>
-        <input
-          onChange={updateList}
-          value={list}
-          type="text"
-          name="list"
-          placeholder="list name"
-        />
-        <button onClick={addList}>add list</button>
+        {/* <h6>list input</h6> */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addList();
+          }}
+        >
+          <input
+            onChange={updateList}
+            value={list}
+            type="text"
+            name="list"
+            placeholder="Create List"
+          />
+          <input type="submit" value="Create List"/>
+        </form>
+        {/* <button onClick={addList}>add list</button> */}
       </div>
     </>
   );
@@ -50,12 +64,12 @@ interface LinkDispatchProps {
 
 const mapStateToProps = (
   state: rootState,
-  ownProps: ListInputProps
+  ownProps: IProps
 ): LinkStateProps => ({});
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, ListActionTypes>,
-  ownProps: ListInputProps
+  ownProps: IProps
 ): LinkDispatchProps => ({
   handleAddList: bindActionCreators(handleAddList, dispatch),
 });

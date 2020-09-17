@@ -1,41 +1,63 @@
 import React from "react";
 import { connect } from "react-redux";
 import { rootState } from "./store/reducers";
-// import { useSelector } from "react-redux";
 import "./App.css";
-import Reminder from "./components/Reminder";
-import ReminderInput from "./components/ReminderInput";
-import { bindActionCreators } from "redux";
+
 import { remindersState } from "./store/reducers/remindersReducer";
-import {
-  handleAddReminder,
-  ReminderActionTypes,
-} from "./store/actions/remindersActions";
+import { ReminderActionTypes } from "./store/actions/remindersActions";
 import { ThunkDispatch } from "redux-thunk";
 import ListInput from "./components/ListInput";
 import { listState } from "./store/reducers/listReducer";
-// import { remindersState } from "./store/reducers/remindersReducer";
+import List from "./components/List";
+import RemindersHolder from "./components/RemindersHolder";
 
-interface AppProps {}
+interface IProps {}
 
-interface AppState {
+interface IState {
   currentList: string;
 }
 
-type Props = AppProps & LinkStateProps & LinkDispatchProps;
+type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-class App extends React.Component<Props, AppState> {
-  state: AppState = {
+class App extends React.Component<Props, IState> {
+  state: IState = {
     currentList: "",
   };
 
-  // handleClickAddReminder = (reminder: string): void => {
-  //   this.props.handleAddReminder(reminder);
-  // };
+  componentDidMount() {
+    // set default list if available
+    if (this.props.lists.lists.length > 0) {
+      this.setState({
+        currentList: this.props.lists.lists[0].name,
+      });
+    }
+  }
 
-  handleChangeList = (nameOfList: string): void => {
+  updateCurrentList = (newList: string): void => {
+    // for ListInput
+
     this.setState({
-      currentList: nameOfList,
+      currentList: newList,
+    });
+  };
+
+  handleChangeList = (nameOfList?: string): void => {
+    // for List
+    let listToSet: string;
+
+    if (nameOfList) {
+      // argument provided => change to that list
+      listToSet = nameOfList;
+    } else if (this.props.lists.lists.length > 1) {
+      // no argument => change to the first list if available
+      listToSet = this.props.lists.lists[0].name;
+    } else {
+      // no more lists
+      listToSet = "";
+    }
+
+    this.setState({
+      currentList: listToSet,
     });
   };
 
@@ -45,24 +67,26 @@ class App extends React.Component<Props, AppState> {
     return (
       <div className="App">
         <h1>Reminders</h1>
-        <h4>Lists</h4>
-        <ListInput />
-        <div>Currently showing {currentList}</div>
-        {lists.lists.map((l) => (
-          <button onClick={() => this.handleChangeList(l.name)} key={l.name}>
-            {l.name}
-          </button>
-        ))}
-        <ReminderInput currentList={currentList} />
-        <h4>Reminders</h4>
-        <ul>
-          {reminders.reminders
-            .filter((r) => r.for === currentList)
-            .map((r) => (
-              <Reminder r={r} key={r.reminder} />
-              // <Reminder r={r} />
-            ))}
-        </ul>
+        <div className="main-holder">
+          <div className="side-bar">
+            <ListInput
+              updateCurrentList={this.updateCurrentList}
+              currentList={currentList}
+            />
+
+            <div className="lists-holder">
+              {lists.lists.map((l) => (
+                <List
+                  key={l.name}
+                  handleChangeList={this.handleChangeList}
+                  list={l}
+                  currentList={currentList}
+                />
+              ))}
+            </div>
+          </div>
+          <RemindersHolder currentList={currentList} />
+        </div>
       </div>
     );
   }
@@ -73,13 +97,11 @@ interface LinkStateProps {
   lists: listState;
 }
 
-interface LinkDispatchProps {
-  // handleAddReminder: (reminder: string) => void;
-}
+interface LinkDispatchProps {}
 
 const mapStateToProps = (
   state: rootState,
-  ownProps: AppProps
+  ownProps: IProps
 ): LinkStateProps => ({
   reminders: state.reminders,
   lists: state.lists,
@@ -87,11 +109,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, ReminderActionTypes>,
-  ownProps: AppProps
-): LinkDispatchProps => ({
-  // handleAddReminder: bindActionCreators(handleAddReminder, dispatch),
-});
+  ownProps: IProps
+): LinkDispatchProps => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-// export default App;

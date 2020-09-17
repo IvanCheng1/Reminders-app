@@ -3,10 +3,15 @@ import { IList } from "../reducers/listReducer";
 
 export const ADD_LIST = "ADD_LIST";
 export const GET_LISTS = "GET_LISTS";
-export const DELETE_LISTS = "DELETE_LISTS";
+export const DELETE_LIST = "DELETE_LIST";
 
 interface addListAction {
   type: typeof ADD_LIST;
+  list: IList;
+}
+
+interface deleteListAction {
+  type: typeof DELETE_LIST;
   list: IList;
 }
 
@@ -17,10 +22,23 @@ const addListAction = (nameOfList: string): ListActionTypes => {
   };
 };
 
+const deleteListAction = (list: IList): ListActionTypes => {
+  return {
+    type: DELETE_LIST,
+    list,
+  };
+};
+
 export const handleAddList = (nameOfList: string) => {
   return (dispatch: Dispatch<ListActionTypes>) => {
-    dispatch(addListAction(nameOfList))
+    dispatch(addListAction(nameOfList));
+  };
+};
+
+export const handleDeleteList = (list: IList) => {
+  return (dispatch: Dispatch<ListActionTypes>) => {
+    dispatch(deleteListAction(list))
   }
 }
 
-export type ListActionTypes = addListAction;
+export type ListActionTypes = addListAction | deleteListAction;

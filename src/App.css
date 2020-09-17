@@ -9,3 +9,100 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
+
+.main-holder {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid white;
+}
+
+.side-bar {
+  border: 1px solid red;
+}
+
+.main {
+  background-color: #13171d;
+}
+
+.reminders-page-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.list-button {
+  text-transform: capitalize;
+  margin: 15px auto;
+  padding: 10px;
+  border: 2px solid rgba(13, 174, 177, 0);
+  cursor: pointer;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 255, 0.584);
+  position: relative;
+  transition: ease 0.3s all;
+  /* float: right; */
+}
+
+.list-button.active {
+  text-transform: capitalize;
+  margin: 15px auto;
+  padding: 10px;
+  border: 2px solid rgba(13, 174, 177, 0.406);
+  cursor: pointer;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0);
+  color: rgb(255, 255, 255);
+  position: relative;
+  transition: ease 0.3s all;
+  background-color: rgba(112, 116, 125, 0.28);
+}
+
+.list-button:hover,
+.list-button:focus {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transition: ease 0.3s all;
+  border: 2px solid rgba(13, 174, 177, 0.406);
+}
+
+.list-holder {
+  display: flex;
+  flex-direction: row;
+  /* background-color: blue; */
+}
+
+.list-holder.active {
+  background-color: grey;
+}
+
+input[type=checkbox] {
+  transform: scale(2);
+  /* padding: 20px; */
+  margin: 10px;
+}
+
+input[type=submit] {
+  color: rgba(255, 255, 255, 0.584);
+  
+}
+
+input[type=submit]:hover, 
+input[type=submit]:focus {
+  text-decoration: none;
+  color: rgb(66, 39, 39);
+  transition: ease 0.3s all;
+  /* border: 2px solid rgba(13, 174, 177, 0.406); */
+}
+
+
+
+.vertical-align {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+}
