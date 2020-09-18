@@ -2,14 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { rootState } from "./store/reducers";
 import "./App.css";
-
 import { remindersState } from "./store/reducers/remindersReducer";
 import { ReminderActionTypes } from "./store/actions/remindersActions";
 import { ThunkDispatch } from "redux-thunk";
-import ListInput from "./components/ListInput";
 import { listState } from "./store/reducers/listReducer";
-import List from "./components/List";
 import RemindersHolder from "./components/RemindersHolder";
+import ListsHolder from "./components/ListsHolder";
 
 interface IProps {}
 
@@ -62,29 +60,16 @@ class App extends React.Component<Props, IState> {
   };
 
   render() {
-    const { reminders, lists } = this.props;
     const { currentList } = this.state;
     return (
       <div className="App">
         <h1>Reminders</h1>
         <div className="main-holder">
-          <div className="side-bar">
-            <ListInput
-              updateCurrentList={this.updateCurrentList}
-              currentList={currentList}
-            />
-
-            <div className="lists-holder">
-              {lists.lists.map((l) => (
-                <List
-                  key={l.name}
-                  handleChangeList={this.handleChangeList}
-                  list={l}
-                  currentList={currentList}
-                />
-              ))}
-            </div>
-          </div>
+          <ListsHolder
+            currentList={currentList}
+            updateCurrentList={this.updateCurrentList}
+            handleChangeList={this.handleChangeList}
+          />
           <RemindersHolder currentList={currentList} />
         </div>
       </div>
