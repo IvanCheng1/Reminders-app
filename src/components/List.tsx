@@ -39,20 +39,26 @@ const List = ({
 
   return (
     <>
-      <div className={
-            currentList === list.name ? "list-holder active" : "list-holder"
-          }>
-        <button
-          className="list-button"
-          onClick={() => handleChangeList(list.name)}
-        >
-          {list.name}
-        </button>
+      {/* <div
+        className={
+          currentList === list.name ? "list-holder active" : "list-holder"
+        }
+      > */}
+      <button
+        className={
+          currentList === list.name
+            ? "list-holder-button active"
+            : "list-holder-button"
+        }
+        onClick={() => handleChangeList(list.name)}
+      >
+        <div className="list-name">{list.name}</div>
         {/* <button onClick={() => deleteList()}>Delete</button> */}
         <div className="vertical-align">
           {reminders.reminders.filter((r) => r.for === list.name).length}
         </div>
-      </div>
+      </button>
+      {/* </div> */}
     </>
   );
 };
