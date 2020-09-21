@@ -108,34 +108,37 @@ class Reminder extends React.Component<Props, IState> {
     return (
       <>
         <li ref={this.wrapper}>
-          <input
-            type="checkbox"
-            onChange={() => this.setReminder()}
-            checked={r.completed}
-          />
-
-          {edit ? (
-            <>
-              <form onSubmit={this.onSaveReminder}>
-                <input
-                  value={this.state.newReminder}
-                  onChange={this.editReminder}
-                  ref={this.input}
-                />
-                <input type="submit" value="Save" />
-              </form>
-              <button onClick={this.deleteReminder}>delete</button>
-            </>
-          ) : (
-            <>
-              <div
-                className="reminder-name"
-                onDoubleClick={this.onEditReminder}
-              >
-                {r.reminder}
+          <div className="vertical-align">
+            <input
+              type="checkbox"
+              onChange={() => this.setReminder()}
+              checked={r.completed}
+            />
+          </div>
+          <div className="reminder-wrapper">
+            {edit ? (
+              <div className="reminder-input-wrapper">
+                <form onSubmit={this.onSaveReminder}>
+                  <input
+                    value={this.state.newReminder}
+                    onChange={this.editReminder}
+                    ref={this.input}
+                  />
+                  <input type="submit" value="Save" />
+                </form>
+                <button onClick={this.deleteReminder}>delete</button>
               </div>
-            </>
-          )}
+            ) : (
+              <>
+                <div
+                  className="reminder-name"
+                  onDoubleClick={this.onEditReminder}
+                >
+                  {r.reminder}
+                </div>
+              </>
+            )}
+          </div>
         </li>
       </>
     );

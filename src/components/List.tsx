@@ -122,7 +122,7 @@ class List extends React.Component<Props, IState> {
           onClick={() => handleChangeList(list.name)}
         >
           {this.state.edit ? (
-            <div className="list-name">
+            <div className="list-name vertical-align">
               <form onSubmit={this.onSaveList}>
                 <input
                   value={this.state.newList}
@@ -135,7 +135,7 @@ class List extends React.Component<Props, IState> {
               {/* <button onClick={this.onSaveList}>Save</button> */}
             </div>
           ) : (
-            <div className="list-name" onDoubleClick={this.onEditList}>
+            <div className="list-name vertical-align" onDoubleClick={this.onEditList}>
               {list.name}
             </div>
           )}
