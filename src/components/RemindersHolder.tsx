@@ -21,13 +21,16 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class RemindersHolder extends React.Component<Props, IState> {
   onClearAllCompleted = () => {
-    this.props.handleDeleteCompletedRemindersFromList(this.props.currentList)
+    this.props.handleDeleteCompletedRemindersFromList(this.props.currentList);
   };
 
   render() {
     const { reminders, currentList } = this.props;
     const remindersCount = reminders.reminders.filter(
       (r) => r.for === currentList
+    ).length;
+    const remindersCompletedCount = reminders.reminders.filter(
+      (r) => r.for === currentList && r.completed === true
     ).length;
     return (
       <div className="main">
@@ -41,13 +44,19 @@ class RemindersHolder extends React.Component<Props, IState> {
               {reminders.reminders
                 .filter((r) => r.for === currentList)
                 .map((r) => (
-                  <Reminder r={r} key={r.reminder} />
+                  <Reminder r={r} key={r.reminder} list={currentList} />
                 ))}
             </ul>
           ) : (
             <div className="reminders-empty">All Items Completed</div>
           )}
-          <button onClick={this.onClearAllCompleted}>Clear All Completed</button>
+          {remindersCompletedCount > 0 ? (
+            <button onClick={this.onClearAllCompleted}>
+              Clear All Completed
+            </button>
+          ) : (
+            ""
+          )}
         </div>
         <ReminderInput currentList={currentList} />
       </div>

@@ -9,6 +9,7 @@ export const DELETE_REMINDER = "DELETE_REMINDER";
 export const DELETE_REMINDERS_FROM_LIST = "DELETE_REMINDERS_FROM_LIST";
 export const DELETE_COMPLETED_REMINDERS_FROM_LIST =
   "DELETE_COMPLETED_REMINDERS_FROM_LIST";
+export const EDIT_REMINDER = "EDIT_REMINDER";
 export const EDIT_LIST_FOR_REMINDERS = "EDIT_LIST_FOR_REMINDERS";
 
 interface addReminderAction {
@@ -24,6 +25,7 @@ interface addReminderAction {
 interface setReminderAction {
   type: typeof SET_REMINDER;
   reminder: IReminder;
+  list: string,
 }
 
 interface deleteReminderAction {
@@ -38,6 +40,13 @@ interface deleteRemindersFromListAction {
 
 interface deleteCompletedRemindersFromList {
   type: typeof DELETE_COMPLETED_REMINDERS_FROM_LIST;
+  list: string;
+}
+
+interface editReminder {
+  type: typeof EDIT_REMINDER;
+  newReminder: string;
+  oldReminder: string;
   list: string;
 }
 
@@ -64,10 +73,11 @@ const addReminderAction = (
 //   }
 // }
 
-const setReminderAction = (reminder: IReminder): ReminderActionTypes => {
+const setReminderAction = (reminder: IReminder, list: string): ReminderActionTypes => {
   return {
     type: SET_REMINDER,
     reminder,
+    list,
   };
 };
 
@@ -81,6 +91,19 @@ const deleteReminderAction = (reminder: IReminder): ReminderActionTypes => {
 const deleteRemindersFromListAction = (list: string): ReminderActionTypes => {
   return {
     type: DELETE_REMINDERS_FROM_LIST,
+    list,
+  };
+};
+
+const editReminder = (
+  newReminder: string,
+  oldReminder: string,
+  list: string
+): ReminderActionTypes => {
+  return {
+    type: EDIT_REMINDER,
+    newReminder,
+    oldReminder,
     list,
   };
 };
@@ -111,9 +134,9 @@ export const handleAddReminder = (reminder: string, forList: string) => {
   };
 };
 
-export const handleSetReminder = (reminder: IReminder) => {
+export const handleSetReminder = (reminder: IReminder, list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
-    dispatch(setReminderAction(reminder));
+    dispatch(setReminderAction(reminder, list));
   };
 };
 
@@ -147,6 +170,16 @@ export const handleDeleteCompletedRemindersFromList = (list: string) => {
 //   }
 // }
 
+export const handleEditReminder = (
+  newReminder: string,
+  oldReminder: string,
+  list: string
+) => {
+  return (dispatch: Dispatch<ReminderActionTypes>) => {
+    dispatch(editReminder(newReminder, oldReminder, list));
+  };
+};
+
 export const handleEditListForReminders = (
   newList: string,
   oldList: string
@@ -163,4 +196,5 @@ export type ReminderActionTypes =
   | deleteReminderAction
   | deleteRemindersFromListAction
   | editListForReminders
+  | editReminder
   | deleteCompletedRemindersFromList;

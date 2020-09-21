@@ -4,6 +4,7 @@ import {
   DELETE_REMINDER,
   DELETE_REMINDERS_FROM_LIST,
   EDIT_LIST_FOR_REMINDERS,
+  EDIT_REMINDER,
   // GET_REMINDERS,
   ReminderActionTypes,
   SET_REMINDER,
@@ -52,14 +53,16 @@ export default function remindersReducer(
       return {
         ...state,
         reminders: state.reminders.map((r) => {
-          if (r.reminder !== action.reminder.reminder) {
-            return r;
-          } else {
+          if (
+            r.reminder === action.reminder.reminder &&
+            r.for === action.list
+          ) {
             return {
               ...r,
               completed: !r.completed,
             };
           }
+          return r;
         }),
       };
     case DELETE_REMINDER:
@@ -83,6 +86,17 @@ export default function remindersReducer(
             return false;
           }
           return true;
+        }),
+      };
+    case EDIT_REMINDER:
+      console.log(EDIT_REMINDER, state);
+      return {
+        ...state,
+        reminders: state.reminders.map((r) => {
+          if (r.reminder === action.oldReminder && r.for === action.list) {
+            r.reminder = action.newReminder;
+          }
+          return r;
         }),
       };
     case EDIT_LIST_FOR_REMINDERS:

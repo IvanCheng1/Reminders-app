@@ -31,7 +31,6 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class List extends React.Component<Props, IState> {
   wrapper: React.RefObject<any>;
   input: React.RefObject<HTMLInputElement>;
-  // input: any;
   constructor(props: Props) {
     super(props);
     this.wrapper = React.createRef();
