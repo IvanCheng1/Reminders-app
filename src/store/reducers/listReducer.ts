@@ -16,7 +16,11 @@ export interface listState {
 }
 
 const initialState = {
-  lists: [],
+  lists: [
+    {
+      name: "Welcome!"
+    }
+  ],
 };
 
 export default function listReducer(

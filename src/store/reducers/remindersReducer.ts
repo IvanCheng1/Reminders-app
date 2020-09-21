@@ -2,6 +2,7 @@ import {
   ADD_REMINDER,
   DELETE_REMINDER,
   DELETE_REMINDERS_FROM_LIST,
+  EDIT_LIST_FOR_REMINDERS,
   // GET_REMINDERS,
   ReminderActionTypes,
   SET_REMINDER,
@@ -64,8 +65,19 @@ export default function remindersReducer(
       console.log(DELETE_REMINDERS_FROM_LIST, state);
       return {
         ...state,
-        reminders: state.reminders.filter(r => r.for !== action.list)
-      }
+        reminders: state.reminders.filter((r) => r.for !== action.list),
+      };
+    case EDIT_LIST_FOR_REMINDERS:
+      console.log(EDIT_LIST_FOR_REMINDERS, state);
+      return {
+        ...state,
+        reminders: state.reminders.map((r) => {
+          if (r.for === action.oldList) {
+            r.for = action.newList;
+          }
+          return r;
+        }),
+      };
     default:
       console.log("default case");
       return state;

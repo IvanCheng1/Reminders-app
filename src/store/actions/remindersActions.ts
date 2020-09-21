@@ -7,6 +7,7 @@ export const GET_REMINDERS = "GET_REMINDERS";
 export const SET_REMINDER = "SET_REMINDER";
 export const DELETE_REMINDER = "DELETE_REMINDER";
 export const DELETE_REMINDERS_FROM_LIST = "DELETE_REMINDERS_FROM_LIST";
+export const EDIT_LIST_FOR_REMINDERS = "EDIT_LIST_FOR_REMINDERS";
 
 interface addReminderAction {
   type: typeof ADD_REMINDER;
@@ -31,6 +32,12 @@ interface deleteReminderAction {
 interface deleteRemindersFromListAction {
   type: typeof DELETE_REMINDERS_FROM_LIST;
   list: string;
+}
+
+interface editListForReminders {
+  type: typeof EDIT_LIST_FOR_REMINDERS;
+  newList: string;
+  oldList: string;
 }
 
 const addReminderAction = (
@@ -71,6 +78,17 @@ const deleteRemindersFromListAction = (list: string): ReminderActionTypes => {
   };
 };
 
+const editListForReminders = (
+  newList: string,
+  oldList: string
+): ReminderActionTypes => {
+  return {
+    type: EDIT_LIST_FOR_REMINDERS,
+    newList,
+    oldList,
+  };
+};
+
 export const handleAddReminder = (reminder: string, forList: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(addReminderAction(reminder, forList));
@@ -91,9 +109,9 @@ export const handleDeleteReminder = (reminder: IReminder) => {
 
 export const handleDeleteRemindersFromList = (list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
-    dispatch(deleteRemindersFromListAction(list))
-  }
-}
+    dispatch(deleteRemindersFromListAction(list));
+  };
+};
 
 // export const handleGetReminders = () => {
 //   return (dispatch: Dispatch<ReminderActionTypes>) => {
@@ -107,9 +125,19 @@ export const handleDeleteRemindersFromList = (list: string) => {
 //   }
 // }
 
+export const handleEditListForReminders = (
+  newList: string,
+  oldList: string
+) => {
+  return (dispatch: Dispatch<ReminderActionTypes>) => {
+    dispatch(editListForReminders(newList, oldList));
+  };
+};
+
 export type ReminderActionTypes =
   | addReminderAction
   // | getRemindersAction
   | setReminderAction
   | deleteReminderAction
-  | deleteRemindersFromListAction;
+  | deleteRemindersFromListAction
+  | editListForReminders;

@@ -7,7 +7,7 @@ import {
   handleEditList,
   ListActionTypes,
 } from "../store/actions/listActions";
-import { handleDeleteRemindersFromList } from "../store/actions/remindersActions";
+import { handleDeleteRemindersFromList, handleEditListForReminders } from "../store/actions/remindersActions";
 import { rootState } from "../store/reducers";
 import { IList } from "../store/reducers/listReducer";
 import { remindersState } from "../store/reducers/remindersReducer";
@@ -26,6 +26,12 @@ interface IState {
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class List extends React.Component<Props, IState> {
+  wrapper: React.RefObject<any>;
+  constructor(props: Props) {
+    super(props);
+    this.wrapper = React.createRef();
+  }
+
   state: IState = {
     edit: false,
     newList: "",
@@ -44,6 +50,17 @@ class List extends React.Component<Props, IState> {
       edit: !prev.edit,
       newList: this.props.list.name,
     }));
+
+    document.addEventListener("click", this.handleClickOutside);
+  };
+
+  handleClickOutside = (e: MouseEvent) => {
+    // e.preventDefault();
+    console.log(e);
+
+    if (this.wrapper && !this.wrapper.current?.contains(e.target)) {
+      this.onSaveList();
+    }
   };
 
   editList = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -51,14 +68,23 @@ class List extends React.Component<Props, IState> {
     this.setState({ newList: value });
   };
 
-  onSaveList = (): void => {
+  onSaveList = (e?: React.FormEvent<HTMLFormElement>): void => {
+    if (e) e.preventDefault();
+
+    // change reminders' for list
+    this.props.handleEditListForReminders(this.state.newList, this.props.list.name)
     // save list to store
     this.props.handleEditList(this.state.newList, this.props.list.name);
+    //update default list
+    this.props.handleChangeList(this.state.newList);
     // setstate
     this.setState((prev) => ({
-      edit: !prev.edit,
+      edit: false,
       newList: "",
     }));
+
+    // remove click listener
+    document.removeEventListener("click", this.handleClickOutside);
   };
 
   // onDoubleClick = (): void => {
@@ -72,6 +98,7 @@ class List extends React.Component<Props, IState> {
     return (
       <>
         <div
+          ref={this.wrapper}
           className={
             currentList === list.name ? "list-holder active" : "list-holder"
           }
@@ -79,9 +106,12 @@ class List extends React.Component<Props, IState> {
         >
           {this.state.edit ? (
             <div className="list-name">
-              <input value={this.state.newList} onChange={this.editList} />
+              <form onSubmit={this.onSaveList}>
+                <input value={this.state.newList} onChange={this.editList} />
+                <input type="submit" value="Save" />
+              </form>
               {/* <button>Delete</button> */}
-              <button onClick={this.onSaveList}>Save</button>
+              {/* <button onClick={this.onSaveList}>Save</button> */}
             </div>
           ) : (
             <div className="list-name" onDoubleClick={this.onEditList}>
@@ -108,6 +138,7 @@ interface LinkDispatchProps {
   handleDeleteList: (list: IList) => void;
   handleDeleteRemindersFromList: (list: string) => void;
   handleEditList: (newList: string, oldList: string) => void;
+  handleEditListForReminders: (newList: string, oldList: string) => void;
 }
 
 const mapStateToProps = (
@@ -127,6 +158,7 @@ const mapDispatchToProps = (
     dispatch
   ),
   handleEditList: bindActionCreators(handleEditList, dispatch),
+  handleEditListForReminders: bindActionCreators(handleEditListForReminders, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
