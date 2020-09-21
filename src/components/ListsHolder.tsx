@@ -27,11 +27,9 @@ class ListsHolder extends React.Component<Props, IState> {
     } = this.props;
     return (
       <div className="side-bar">
-        <ListInput
-          updateCurrentList={updateCurrentList}
-          currentList={currentList}
-        />
-
+        <div className="search-bar" >
+          Search bar here
+        </div>
         <div className="lists-holder">
           {lists.lists.map((l) => (
             <List
@@ -42,6 +40,10 @@ class ListsHolder extends React.Component<Props, IState> {
             />
           ))}
         </div>
+        <ListInput
+          updateCurrentList={updateCurrentList}
+          currentList={currentList}
+        />
       </div>
     );
   }

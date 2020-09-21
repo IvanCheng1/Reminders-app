@@ -29,8 +29,13 @@ ul li {
 /* =============== SIDEBAR (list-holder) =============== */
 
 .side-bar {
-  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
   width: 300px;
+}
+
+.lists-holder {
+  height: 100%;
 }
 
 .list-button {
@@ -69,7 +74,7 @@ ul li {
   border: 2px solid rgba(13, 174, 177, 0.406);
 }
 
-.list-holder-button {
+.list-holder {
   display: flex;
   flex-direction: row;
   margin: 0;
@@ -80,15 +85,20 @@ ul li {
   background-color: rgba(255, 255, 255, 0);
 }
 
-.list-holder-button.active {
+.list-holder.active {
   background-color: grey;
 }
 
-/* =============== MAIN =============== */
+.new-list-holder {
+}
+
+/* =============== MAIN (REMINDERS) =============== */
 
 .main {
   background-color: #13171d;
   width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 .reminders-page-holder {
@@ -114,6 +124,18 @@ input[type="submit"]:focus {
   color: rgb(66, 39, 39);
   transition: ease 0.3s all;
   /* border: 2px solid rgba(13, 174, 177, 0.406); */
+}
+
+.reminders-holder {
+  height: 100%;
+}
+
+.reminders-empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* =============== OTHER =============== */

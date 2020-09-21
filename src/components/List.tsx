@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import {
   handleDeleteList,
+  handleEditList,
   ListActionTypes,
 } from "../store/actions/listActions";
 import { handleDeleteRemindersFromList } from "../store/actions/remindersActions";
@@ -17,51 +18,87 @@ interface IProps {
   currentList: string;
 }
 
-interface IState {}
+interface IState {
+  edit: boolean;
+  newList: string;
+}
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-const List = ({
-  handleChangeList,
-  handleDeleteList,
-  handleDeleteRemindersFromList,
-  list,
-  currentList,
-  reminders,
-}: Props) => {
-  const deleteList = () => {
-    handleDeleteList(list);
-    handleChangeList();
-
-    // delete reminders from that list!
-    handleDeleteRemindersFromList(list.name);
+class List extends React.Component<Props, IState> {
+  state: IState = {
+    edit: false,
+    newList: "",
   };
 
-  return (
-    <>
-      {/* <div
-        className={
-          currentList === list.name ? "list-holder active" : "list-holder"
-        }
-      > */}
-      <button
-        className={
-          currentList === list.name
-            ? "list-holder-button active"
-            : "list-holder-button"
-        }
-        onClick={() => handleChangeList(list.name)}
-      >
-        <div className="list-name">{list.name}</div>
-        {/* <button onClick={() => deleteList()}>Delete</button> */}
-        <div className="vertical-align">
-          {reminders.reminders.filter((r) => r.for === list.name).length}
+  deleteList = () => {
+    this.props.handleDeleteList(this.props.list);
+    this.props.handleChangeList();
+
+    // delete reminders from that list!
+    this.props.handleDeleteRemindersFromList(this.props.list.name);
+  };
+
+  onEditList = (): void => {
+    this.setState((prev) => ({
+      edit: !prev.edit,
+      newList: this.props.list.name,
+    }));
+  };
+
+  editList = (e: React.FormEvent<HTMLInputElement>): void => {
+    const { value } = e.currentTarget;
+    this.setState({ newList: value });
+  };
+
+  onSaveList = (): void => {
+    // save list to store
+    this.props.handleEditList(this.state.newList, this.props.list.name);
+    // setstate
+    this.setState((prev) => ({
+      edit: !prev.edit,
+      newList: "",
+    }));
+  };
+
+  // onDoubleClick = (): void => {
+  //   this.setState((prev) => ({
+  //     edit: !prev.edit,
+  //   }));
+  // };
+
+  render() {
+    const { currentList, list, handleChangeList, reminders } = this.props;
+    return (
+      <>
+        <div
+          className={
+            currentList === list.name ? "list-holder active" : "list-holder"
+          }
+          onClick={() => handleChangeList(list.name)}
+        >
+          {this.state.edit ? (
+            <div className="list-name">
+              <input value={this.state.newList} onChange={this.editList} />
+              {/* <button>Delete</button> */}
+              <button onClick={this.onSaveList}>Save</button>
+            </div>
+          ) : (
+            <div className="list-name" onDoubleClick={this.onEditList}>
+              {list.name}
+            </div>
+          )}
+          {/* {this.state.edit ? "editing" : "not editing"} */}
+          {/* <button onClick={() => deleteList()}>Delete</button> */}
+          {/* <button onClick={this.editClick}>Edit</button> */}
+          <div className="vertical-align">
+            {reminders.reminders.filter((r) => r.for === list.name).length}
+          </div>
         </div>
-      </button>
-      {/* </div> */}
-    </>
-  );
-};
+      </>
+    );
+  }
+}
 
 interface LinkStateProps {
   reminders: remindersState;
@@ -70,6 +107,7 @@ interface LinkStateProps {
 interface LinkDispatchProps {
   handleDeleteList: (list: IList) => void;
   handleDeleteRemindersFromList: (list: string) => void;
+  handleEditList: (newList: string, oldList: string) => void;
 }
 
 const mapStateToProps = (
@@ -88,6 +126,7 @@ const mapDispatchToProps = (
     handleDeleteRemindersFromList,
     dispatch
   ),
+  handleEditList: bindActionCreators(handleEditList, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

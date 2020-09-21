@@ -4,6 +4,7 @@ import { IList } from "../reducers/listReducer";
 export const ADD_LIST = "ADD_LIST";
 export const GET_LISTS = "GET_LISTS";
 export const DELETE_LIST = "DELETE_LIST";
+export const EDIT_LIST = "EDIT_LIST";
 
 interface addListAction {
   type: typeof ADD_LIST;
@@ -13,6 +14,12 @@ interface addListAction {
 interface deleteListAction {
   type: typeof DELETE_LIST;
   list: IList;
+}
+
+interface editListAction {
+  type: typeof EDIT_LIST;
+  newList: string;
+  oldList: string;
 }
 
 const addListAction = (nameOfList: string): ListActionTypes => {
@@ -29,6 +36,14 @@ const deleteListAction = (list: IList): ListActionTypes => {
   };
 };
 
+const editListAction = (newList: string, oldList: string): ListActionTypes => {
+  return {
+    type: EDIT_LIST,
+    newList,
+    oldList,
+  };
+};
+
 export const handleAddList = (nameOfList: string) => {
   return (dispatch: Dispatch<ListActionTypes>) => {
     dispatch(addListAction(nameOfList));
@@ -37,8 +52,14 @@ export const handleAddList = (nameOfList: string) => {
 
 export const handleDeleteList = (list: IList) => {
   return (dispatch: Dispatch<ListActionTypes>) => {
-    dispatch(deleteListAction(list))
-  }
-}
+    dispatch(deleteListAction(list));
+  };
+};
 
-export type ListActionTypes = addListAction | deleteListAction;
+export const handleEditList = (newList: string, oldList: string) => {
+  return (dispatch: Dispatch<ListActionTypes>) => {
+    dispatch(editListAction(newList, oldList));
+  };
+};
+
+export type ListActionTypes = addListAction | deleteListAction | editListAction;

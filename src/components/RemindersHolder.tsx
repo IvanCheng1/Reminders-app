@@ -18,23 +18,29 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class RemindersHolder extends React.Component<Props, IState> {
   render() {
     const { reminders, currentList } = this.props;
+    const remindersCount = reminders.reminders.filter(
+      (r) => r.for === currentList
+    ).length;
     return (
       <div className="main">
         <div className="reminders-page-holder">
           <div className="reminders-page-title">{currentList}</div>
-          <div className="reminders-page-count">
-            {reminders.reminders.filter((r) => r.for === currentList).length}
-          </div>
+          <div className="reminders-page-count">{remindersCount}</div>
+        </div>
+        <div className="reminders-holder">
+          {remindersCount ? (
+            <ul>
+              {reminders.reminders
+                .filter((r) => r.for === currentList)
+                .map((r) => (
+                  <Reminder r={r} key={r.reminder} />
+                ))}
+            </ul>
+          ) : (
+            <div className="reminders-empty">All Items Completed</div>
+          )}
         </div>
         <ReminderInput currentList={currentList} />
-
-        <ul>
-          {reminders.reminders
-            .filter((r) => r.for === currentList)
-            .map((r) => (
-              <Reminder r={r} key={r.reminder} />
-            ))}
-        </ul>
       </div>
     );
   }
