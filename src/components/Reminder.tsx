@@ -15,14 +15,14 @@ interface IProps {
 }
 
 interface IState {
-  editing: boolean;
+  edit: boolean;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Reminder extends React.Component<Props, IState> {
   state: IState = {
-    editing: false,
+    edit: false,
   };
 
   setReminder = () => {
@@ -35,13 +35,13 @@ class Reminder extends React.Component<Props, IState> {
 
   editReminder = () => {
     this.setState((prev) => ({
-      editing: !prev.editing,
+      edit: !prev.edit,
     }));
   };
 
   render() {
     const { r } = this.props;
-    const { editing } = this.state;
+    const { edit } = this.state;
 
     return (
       <>
@@ -51,11 +51,10 @@ class Reminder extends React.Component<Props, IState> {
             onClick={() => this.setReminder()}
             defaultChecked={r.completed}
           />
-          {r.reminder}
+          <div className="reminder-name">{r.reminder}</div>
           {r.completed ? " - completed " : " - not completed "}
-          {/* <button onClick={this.setReminder}>complete</button> */}
 
-          {editing ? (
+          {edit ? (
             <>
               <button onClick={this.deleteReminder}>delete</button>
               <button onClick={this.editReminder}>save</button>

@@ -1,5 +1,6 @@
 import {
   ADD_REMINDER,
+  DELETE_COMPLETED_REMINDERS_FROM_LIST,
   DELETE_REMINDER,
   DELETE_REMINDERS_FROM_LIST,
   EDIT_LIST_FOR_REMINDERS,
@@ -21,7 +22,13 @@ export interface remindersState {
 }
 
 const initialState = {
-  reminders: [],
+  reminders: [
+    {
+      reminder: "Hello World!",
+      completed: false,
+      for: "Welcome!",
+    },
+  ],
 };
 
 export default function remindersReducer(
@@ -66,6 +73,17 @@ export default function remindersReducer(
       return {
         ...state,
         reminders: state.reminders.filter((r) => r.for !== action.list),
+      };
+    case DELETE_COMPLETED_REMINDERS_FROM_LIST:
+      console.log(DELETE_COMPLETED_REMINDERS_FROM_LIST, state);
+      return {
+        ...state,
+        reminders: state.reminders.filter((r) => {
+          if (r.for === action.list && r.completed === true) {
+            return false;
+          }
+          return true;
+        }),
       };
     case EDIT_LIST_FOR_REMINDERS:
       console.log(EDIT_LIST_FOR_REMINDERS, state);

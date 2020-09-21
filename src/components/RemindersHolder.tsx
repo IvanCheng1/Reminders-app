@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { ReminderActionTypes } from "../store/actions/remindersActions";
+import {
+  handleDeleteCompletedRemindersFromList,
+  ReminderActionTypes,
+} from "../store/actions/remindersActions";
 import { rootState } from "../store/reducers";
 import { remindersState } from "../store/reducers/remindersReducer";
 import Reminder from "./Reminder";
@@ -16,6 +20,10 @@ interface IState {}
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class RemindersHolder extends React.Component<Props, IState> {
+  onClearAllCompleted = () => {
+    this.props.handleDeleteCompletedRemindersFromList(this.props.currentList)
+  };
+
   render() {
     const { reminders, currentList } = this.props;
     const remindersCount = reminders.reminders.filter(
@@ -39,6 +47,7 @@ class RemindersHolder extends React.Component<Props, IState> {
           ) : (
             <div className="reminders-empty">All Items Completed</div>
           )}
+          <button onClick={this.onClearAllCompleted}>Clear All Completed</button>
         </div>
         <ReminderInput currentList={currentList} />
       </div>
@@ -50,7 +59,9 @@ interface LinkStateProps {
   reminders: remindersState;
 }
 
-interface LinkDispatchProps {}
+interface LinkDispatchProps {
+  handleDeleteCompletedRemindersFromList: (list: string) => void;
+}
 
 const mapStateToProps = (
   state: rootState,
@@ -62,6 +73,11 @@ const mapStateToProps = (
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, ReminderActionTypes>,
   ownProps: IProps
-): LinkDispatchProps => ({});
+): LinkDispatchProps => ({
+  handleDeleteCompletedRemindersFromList: bindActionCreators(
+    handleDeleteCompletedRemindersFromList,
+    dispatch
+  ),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemindersHolder);

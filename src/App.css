@@ -15,6 +15,7 @@
 ul li {
   list-style-type: none;
   text-decoration: none;
+  text-align: left;
 }
 
 /* =============== MAIN HOLDER =============== */
