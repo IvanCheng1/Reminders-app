@@ -109,11 +109,15 @@ class Reminder extends React.Component<Props, IState> {
       <>
         <li ref={this.wrapper}>
           <div className="vertical-align">
-            <input
-              type="checkbox"
-              onChange={() => this.setReminder()}
-              checked={r.completed}
-            />
+            <div className="round">
+              <input
+                type="checkbox"
+                onChange={() => this.setReminder()}
+                checked={r.completed}
+                id={r.reminder}
+              />
+              <label htmlFor={r.reminder}></label>
+            </div>
           </div>
           <div className="reminder-wrapper">
             {edit ? (
