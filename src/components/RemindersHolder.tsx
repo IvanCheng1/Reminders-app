@@ -50,13 +50,16 @@ class RemindersHolder extends React.Component<Props, IState> {
           ) : (
             <div className="reminders-empty">All Items Completed</div>
           )}
-          {remindersCompletedCount > 0 ? (
-            <button onClick={this.onClearAllCompleted}>
-              Clear All Completed
-            </button>
-          ) : (
-            ""
-          )}
+          <button
+            onClick={this.onClearAllCompleted}
+            className={
+              remindersCompletedCount > 0
+                ? "clear-all-reminders-button"
+                : "clear-all-reminders-button hidden"
+            }
+          >
+            Clear All Completed
+          </button>
         </div>
         <ReminderInput currentList={currentList} />
       </div>
