@@ -33,7 +33,7 @@ function ListInput({ handleAddList, updateCurrentList }: Props) {
 
   return (
     <>
-      <div className="new-list-holder">
+      <div className="list-input-wrapper">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -47,7 +47,7 @@ function ListInput({ handleAddList, updateCurrentList }: Props) {
             name="list"
             placeholder="Create List"
           />
-          <input type="submit" value="Create List" />
+          <input type="submit" value="+" className={list === "" ? "create-list-button hidden" : "create-list-button"} />
         </form>
       </div>
     </>

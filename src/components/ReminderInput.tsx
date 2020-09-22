@@ -53,7 +53,9 @@ function ReminderInput({ handleAddReminder, currentList }: Props) {
             name="reminder"
             placeholder="Create Reminder"
           />
-          <input type="submit" value="Create Reminder" />
+          {/* <input type="submit" value="Create Reminder" /> */}
+          <input type="submit" value="+" className={reminder === "" ? "create-reminder-button hidden" : "create-reminder-button"} />
+
         </form>
       </div>
     </>

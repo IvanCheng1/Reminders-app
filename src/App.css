@@ -93,7 +93,42 @@ ul li {
   background-color: grey;
 }
 
-.new-list-holder {
+.list-input-wrapper {
+  margin: 20px 10px;
+}
+
+.list-input-wrapper form {
+  display: flex;
+  flex-direction: row;
+}
+
+.list-input-wrapper form input[type="text"] {
+  margin-left: 23px;
+  width: 100%;
+  height: 30px;
+  padding: 0 5px;
+}
+
+.list-input-wrapper form input[type="submit"] {
+  color: rgba(255, 255, 255, 0.584);
+  margin: 5px;
+  transition: all ease 0.5s;
+  width: 36px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.list-input-wrapper form input[type="submit"]:hover,
+.list-input-wrapper form input[type="submit"]:focus {
+  text-decoration: none;
+  color: rgb(66, 39, 39);
+  /* transition: ease 0.3s all; */
+  /* border: 2px solid rgba(13, 174, 177, 0.406); */
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* =============== MAIN (REMINDERS) =============== */
@@ -122,7 +157,6 @@ ul li {
 
 .reminders-page-count {
   font-size: 2.3rem;
-
 }
 
 input[type="checkbox"] {
@@ -139,19 +173,19 @@ input[type="checkbox"] {
   background-color: #eee;
 
   /* width: 1.3em; */
-    /* height: 1.3em; */
-    /* background-color: white; */
-    border-radius: 50%;
-    /* vertical-align: middle; */
-    /* border: 1px solid #ddd; */
-    -webkit-appearance: none;
-    outline: none;
-    /* cursor: pointer; */
+  /* height: 1.3em; */
+  /* background-color: white; */
+  border-radius: 50%;
+  /* vertical-align: middle; */
+  /* border: 1px solid #ddd; */
+  -webkit-appearance: none;
+  outline: none;
+  /* cursor: pointer; */
 }
 
-input[type="submit"] {
+/* input[type="submit"] {
   color: rgba(255, 255, 255, 0.584);
-}
+} */
 
 input[type="submit"]:hover,
 input[type="submit"]:focus {
@@ -160,8 +194,6 @@ input[type="submit"]:focus {
   transition: ease 0.3s all;
   /* border: 2px solid rgba(13, 174, 177, 0.406); */
 }
-
-
 
 .round {
   position: relative;
@@ -209,9 +241,6 @@ input[type="submit"]:focus {
   opacity: 1;
 }
 
-
-
-
 .reminders-holder {
   height: 100%;
 }
@@ -248,13 +277,11 @@ input {
   height: 25px;
 }
 
-
-
-
-
-
 .reminder-input-wrapper {
   padding: 10px;
+}
+
+.create-reminder-button {
 }
 
 /* =============== OTHER =============== */
