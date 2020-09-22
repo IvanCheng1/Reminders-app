@@ -39,7 +39,7 @@ function ReminderInput({ handleAddReminder, currentList }: Props) {
 
   return (
     <>
-      <div className="reminder-new-input">
+      <div className="reminder-new-input-wrapper">
         <form
           onSubmit={(e) => {
             e.preventDefault();

@@ -122,7 +122,7 @@ class Reminder extends React.Component<Props, IState> {
 
     return (
       <>
-        <li ref={this.wrapper}>
+        <li>
           <div className="vertical-align">
             <div className="round">
               <input
@@ -134,7 +134,7 @@ class Reminder extends React.Component<Props, IState> {
               <label htmlFor={r.reminder}></label>
             </div>
           </div>
-          <div className="reminder-wrapper">
+          <div className="reminder-wrapper" ref={this.wrapper}>
             {edit ? (
               <div className="reminder-input-wrapper">
                 <form onSubmit={this.onSaveReminder}>

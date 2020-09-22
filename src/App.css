@@ -377,6 +377,40 @@ input[type="submit"]:focus {
   color: #e9e9e9;
 }
 
+.reminder-new-input-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 20px 10px;
+}
+
+.reminder-new-input-wrapper form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.reminder-new-input-wrapper form input[type="text"] {
+  margin-left: 23px;
+  width: 100%;
+  height: 30px;
+}
+
+.reminder-new-input-wrapper form input[type="submit"] {
+  color: rgba(255, 255, 255, 0.584);
+  margin: 5px;
+  transition: all ease 0.5s;
+  width: 31px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.reminder-new-input-wrapper form input[type="submit"]:hover,
+.reminder-new-input-wrapper form input[type="submit"]:focus {
+  text-decoration: none;
+  color: rgb(66, 39, 39);
+  transition: ease 0.3s all;
+}
+
 .create-reminder-button {
 }
 
