@@ -93,6 +93,52 @@ ul li {
   background-color: grey;
 }
 
+.list-name {
+  display: flex;
+  flex-direction: row;
+}
+
+.list-name form input[type=text] {
+  width: 175px;
+}
+
+/* ====== Delete button ====== */
+
+.cross {
+  /* position: absolute; */
+  /* right: 32px; */
+  /* top: 32px; */
+  width: 30px;
+  height: 30px;
+  /* height: 0; */
+  opacity: 0.6;
+  position: relative;
+  margin: 0 5px;
+  background: none;
+}
+.cross:hover {
+  opacity: 1;
+}
+.cross:before,
+.cross:after {
+  position: absolute;
+  /* left: 15px; */
+  top: 2px;
+  left: 14px;
+  content: " ";
+  height: 25px;
+  width: 2px;
+  background-color: #333;
+}
+.cross:before {
+  transform: rotate(45deg);
+}
+.cross:after {
+  transform: rotate(-45deg);
+}
+
+/* ====== end of Delete button ====== */
+
 .list-input-wrapper {
   margin: 20px 10px;
 }
@@ -269,7 +315,7 @@ input[type="submit"]:focus {
 }
 
 .clear-all-reminders-button {
-  transition:  all ease 0.8s;
+  transition: all ease 0.8s;
   transition-delay: 0.5s;
   background: #282c34;
   color: grey;

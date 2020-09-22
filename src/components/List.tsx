@@ -122,15 +122,17 @@ class List extends React.Component<Props, IState> {
           onClick={() => handleChangeList(list.name)}
         >
           {this.state.edit ? (
-            <div className="list-name vertical-align">
+            <div className="list-name">
               <form onSubmit={this.onSaveList}>
                 <input
+                  type="text"
                   value={this.state.newList}
                   onChange={this.editList}
                   ref={this.input}
                 />
-                <input type="submit" value="Save" />
+                {/* <input type="submit" value="Save" /> */}
               </form>
+              <button className="cross" onClick={this.deleteList} />
             </div>
           ) : (
             <div

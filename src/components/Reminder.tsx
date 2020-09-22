@@ -128,7 +128,7 @@ class Reminder extends React.Component<Props, IState> {
                     onChange={this.editReminder}
                     ref={this.input}
                   />
-                  <input type="submit" value="Save" />
+                  {/* <input type="submit" value="Save" /> */}
                 </form>
                 <button onClick={this.deleteReminder}>delete</button>
               </div>
