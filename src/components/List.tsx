@@ -29,11 +29,11 @@ interface IState {
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class List extends React.Component<Props, IState> {
-  wrapper: React.RefObject<any>;
+  wrapper: React.RefObject<HTMLDivElement>;
   input: React.RefObject<HTMLInputElement>;
   constructor(props: Props) {
     super(props);
-    this.wrapper = React.createRef();
+    this.wrapper = React.createRef<HTMLDivElement>();
     this.input = React.createRef<HTMLInputElement>();
   }
 
@@ -73,7 +73,7 @@ class List extends React.Component<Props, IState> {
   };
 
   handleClickOutside = (e: MouseEvent) => {
-    if (this.wrapper && !this.wrapper.current?.contains(e.target)) {
+    if (this.wrapper && !this.wrapper.current?.contains(e.target as Node)) {
       if (this.state.newList !== this.props.list.name) {
         this.onSaveList();
       } else {

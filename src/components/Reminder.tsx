@@ -24,11 +24,11 @@ interface IState {
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Reminder extends React.Component<Props, IState> {
-  wrapper: React.RefObject<any>;
+  wrapper: React.RefObject<HTMLDivElement>;
   input: React.RefObject<HTMLInputElement>;
   constructor(props: Props) {
     super(props);
-    this.wrapper = React.createRef();
+    this.wrapper = React.createRef<HTMLDivElement>();
     this.input = React.createRef<HTMLInputElement>();
   }
 
@@ -87,7 +87,7 @@ class Reminder extends React.Component<Props, IState> {
   };
 
   handleClickOutside = (e: MouseEvent) => {
-    if (this.wrapper && !this.wrapper.current?.contains(e.target)) {
+    if (this.wrapper && !this.wrapper.current?.contains(e.target as Node)) {
       if (this.state.newReminder !== this.props.r.reminder) {
         this.onSaveReminder();
       } else {
