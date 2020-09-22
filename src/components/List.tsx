@@ -43,6 +43,9 @@ class List extends React.Component<Props, IState> {
   };
 
   deleteList = () => {
+    document.removeEventListener("keydown", this.escChar);
+    document.removeEventListener("click", this.handleClickOutside);
+
     this.props.handleDeleteList(this.props.list);
     this.props.handleChangeList();
 

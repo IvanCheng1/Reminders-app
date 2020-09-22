@@ -37,13 +37,16 @@ class Reminder extends React.Component<Props, IState> {
     newReminder: "",
   };
 
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
   setReminder = () => {
     this.props.handleSetReminder(this.props.r, this.props.list);
   };
 
   deleteReminder = () => {
     this.props.handleDeleteReminder(this.props.r);
-    document.removeEventListener("click", this.handleClickOutside);
   };
 
   editReminder = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -79,13 +82,10 @@ class Reminder extends React.Component<Props, IState> {
     );
 
     if (e) {
-      this.setState({
-        edit: false,
-        newReminder: "",
-      });
+      this.setDefaultState();
     }
 
-    document.removeEventListener("click", this.handleClickOutside);
+    // document.removeEventListener("click", this.handleClickOutside);
   };
 
   handleClickOutside = (e: MouseEvent) => {
@@ -93,25 +93,29 @@ class Reminder extends React.Component<Props, IState> {
       if (this.state.newReminder !== this.props.r.reminder) {
         this.onSaveReminder();
       } else {
-        this.setState({
-          edit: false,
-          newReminder: "",
-        });
+        this.setDefaultState();
       }
-      document.removeEventListener("click", this.handleClickOutside);
+      // document.removeEventListener("click", this.handleClickOutside);
     }
   };
 
   escChar = (e: KeyboardEvent): void => {
     if (e.key === "Escape") {
-      document.removeEventListener("keydown", this.escChar);
-      document.removeEventListener("click", this.handleClickOutside);
-
-      this.setState({
-        edit: false,
-        newReminder: "",
-      });
+      this.removeListeners();
+      this.setDefaultState();
     }
+  };
+
+  setDefaultState = (): void => {
+    this.setState({
+      edit: false,
+      newReminder: "",
+    });
+  };
+
+  removeListeners = (): void => {
+    document.removeEventListener("keydown", this.escChar);
+    document.removeEventListener("click", this.handleClickOutside);
   };
 
   render() {
