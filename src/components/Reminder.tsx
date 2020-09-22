@@ -84,8 +84,6 @@ class Reminder extends React.Component<Props, IState> {
     if (e) {
       this.setDefaultState();
     }
-
-    // document.removeEventListener("click", this.handleClickOutside);
   };
 
   handleClickOutside = (e: MouseEvent) => {
@@ -95,7 +93,7 @@ class Reminder extends React.Component<Props, IState> {
       } else {
         this.setDefaultState();
       }
-      // document.removeEventListener("click", this.handleClickOutside);
+      this.removeListeners();
     }
   };
 

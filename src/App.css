@@ -127,8 +127,6 @@ input[type="text"] {
   background: none;
 }
 
-
-
 .cross:hover {
   opacity: 1;
 }
@@ -339,7 +337,14 @@ input[type="submit"]:focus {
   justify-content: center;
 }
 
+.reminder-input-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .reminder-input-wrapper form {
+  /* height: 50px; */
+  display: flex;
   width: 100%;
 }
 
@@ -370,24 +375,6 @@ input[type="submit"]:focus {
   /* transition: all ease 0.3s; */
 
   color: #e9e9e9;
-}
-
-.reminder-input-wrapper {
-  display: flex;
-  flex-direction: row;
-}
-
-.reminder-input-wrapper form {
-  /* height: 50px; */
-  display: flex;
-}
-
-input {
-  height: 25px;
-}
-
-.reminder-input-wrapper {
-  /* padding: 10px; */
 }
 
 .create-reminder-button {

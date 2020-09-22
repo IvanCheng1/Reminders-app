@@ -78,8 +78,8 @@ class List extends React.Component<Props, IState> {
         this.onSaveList();
       } else {
         this.setDefaultState();
-        // document.removeEventListener("click", this.handleClickOutside);
       }
+      this.removeListeners();
     }
   };
 
@@ -104,9 +104,6 @@ class List extends React.Component<Props, IState> {
     if (e) {
       this.setDefaultState();
     }
-
-    // remove click listener
-    // document.removeEventListener("click", this.handleClickOutside);
   };
 
   escChar = (e: KeyboardEvent): void => {
