@@ -131,17 +131,15 @@ class List extends React.Component<Props, IState> {
                 />
                 <input type="submit" value="Save" />
               </form>
-              {/* <button>Delete</button> */}
-              {/* <button onClick={this.onSaveList}>Save</button> */}
             </div>
           ) : (
-            <div className="list-name vertical-align" onDoubleClick={this.onEditList}>
+            <div
+              className="list-name vertical-align"
+              onDoubleClick={this.onEditList}
+            >
               {list.name}
             </div>
           )}
-          {/* {this.state.edit ? "editing" : "not editing"} */}
-          {/* <button onClick={() => deleteList()}>Delete</button> */}
-          {/* <button onClick={this.editClick}>Edit</button> */}
           <div className="vertical-align">
             {reminders.reminders.filter((r) => r.for === list.name).length}
           </div>
