@@ -29,6 +29,11 @@ const initialState = {
       completed: false,
       for: "Welcome!",
     },
+    {
+      reminder: "Double click me to edit the reminder",
+      completed: false,
+      for: "Welcome!",
+    },
   ],
 };
 

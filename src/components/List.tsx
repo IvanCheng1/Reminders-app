@@ -57,6 +57,7 @@ class List extends React.Component<Props, IState> {
     }));
 
     document.addEventListener("click", this.handleClickOutside);
+    document.addEventListener("keydown", this.escChar);
     this.forceUpdate(this.focusOnInput);
   };
 
@@ -108,6 +109,18 @@ class List extends React.Component<Props, IState> {
 
     // remove click listener
     document.removeEventListener("click", this.handleClickOutside);
+  };
+
+  escChar = (e: KeyboardEvent): void => {
+    if (e.key === "Escape") {
+      document.removeEventListener("keydown", this.escChar);
+      document.removeEventListener("click", this.handleClickOutside);
+
+      this.setState({
+        edit: false,
+        newList: "",
+      });
+    }
   };
 
   render() {

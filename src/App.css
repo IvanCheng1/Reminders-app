@@ -17,6 +17,10 @@ ul li {
   text-decoration: none;
 }
 
+input[type="text"] {
+  padding: 0 5px;
+}
+
 /* =============== MAIN HOLDER =============== */
 
 .main-holder {
@@ -80,7 +84,7 @@ ul li {
   display: flex;
   flex-direction: row;
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   /* width: 100%; */
   min-height: 30px;
   justify-content: space-between;
@@ -96,10 +100,16 @@ ul li {
 .list-name {
   display: flex;
   flex-direction: row;
+  /* width: 100%; */
+  text-align: left;
 }
 
-.list-name form input[type=text] {
-  width: 175px;
+.list-name form {
+  width: 100%;
+}
+
+.list-name form input[type="text"] {
+  /* width: 80%; */
 }
 
 /* ====== Delete button ====== */
@@ -116,9 +126,13 @@ ul li {
   margin: 0 5px;
   background: none;
 }
+
+
+
 .cross:hover {
   opacity: 1;
 }
+
 .cross:before,
 .cross:after {
   position: absolute;
@@ -130,11 +144,22 @@ ul li {
   width: 2px;
   background-color: #333;
 }
+
 .cross:before {
   transform: rotate(45deg);
 }
+
 .cross:after {
   transform: rotate(-45deg);
+}
+
+.reminder-input-wrapper .cross {
+  margin-right: 8px;
+}
+
+.reminder-input-wrapper .cross:before,
+.reminder-input-wrapper .cross:after {
+  background-color: rgb(165, 164, 164);
 }
 
 /* ====== end of Delete button ====== */
@@ -152,7 +177,6 @@ ul li {
   margin-left: 23px;
   width: 100%;
   height: 30px;
-  padding: 0 5px;
 }
 
 .list-input-wrapper form input[type="submit"] {
@@ -198,12 +222,15 @@ ul li {
 .reminders-page-title {
   font-size: 2.3rem;
   font-weight: bold;
+  text-align: left;
   /* margin: 10px 0; */
 }
 
 .reminders-page-count {
   font-size: 2.3rem;
 }
+
+/* ==== Checkbox ==== */
 
 input[type="checkbox"] {
   /* transform: scale(2); */
@@ -229,10 +256,6 @@ input[type="checkbox"] {
   /* cursor: pointer; */
 }
 
-/* input[type="submit"] {
-  color: rgba(255, 255, 255, 0.584);
-} */
-
 input[type="submit"]:hover,
 input[type="submit"]:focus {
   text-decoration: none;
@@ -243,8 +266,8 @@ input[type="submit"]:focus {
 
 .round {
   position: relative;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   margin: 7px;
 }
 
@@ -253,11 +276,11 @@ input[type="submit"]:focus {
   border: 1px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  height: 28px;
+  height: 23px;
   left: 0;
   position: absolute;
   top: 0;
-  width: 28px;
+  width: 23px;
 }
 
 .round label:after {
@@ -266,10 +289,10 @@ input[type="submit"]:focus {
   border-right: none;
   content: "";
   height: 6px;
-  left: 7px;
+  left: 5px;
   opacity: 0;
   position: absolute;
-  top: 8px;
+  top: 6px;
   transform: rotate(-45deg);
   width: 12px;
 }
@@ -286,6 +309,8 @@ input[type="submit"]:focus {
 .round input[type="checkbox"]:checked + label:after {
   opacity: 1;
 }
+
+/* ==== end of Checkbox ==== */
 
 .reminders-holder {
   height: 100%;
@@ -314,6 +339,18 @@ input[type="submit"]:focus {
   justify-content: center;
 }
 
+.reminder-input-wrapper form {
+  width: 100%;
+}
+
+.reminder-input-wrapper form input[type="text"] {
+  width: 100%;
+}
+
+.reminder-name {
+  font-size: 1rem;
+}
+
 .clear-all-reminders-button {
   transition: all ease 0.8s;
   transition-delay: 0.5s;
@@ -340,12 +377,17 @@ input[type="submit"]:focus {
   flex-direction: row;
 }
 
+.reminder-input-wrapper form {
+  /* height: 50px; */
+  display: flex;
+}
+
 input {
   height: 25px;
 }
 
 .reminder-input-wrapper {
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .create-reminder-button {

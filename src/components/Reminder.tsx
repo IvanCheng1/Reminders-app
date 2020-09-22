@@ -58,6 +58,7 @@ class Reminder extends React.Component<Props, IState> {
     });
 
     document.addEventListener("click", this.handleClickOutside);
+    document.addEventListener("keydown", this.escChar);
     this.forceUpdate(this.focusOnInput);
   };
 
@@ -101,6 +102,18 @@ class Reminder extends React.Component<Props, IState> {
     }
   };
 
+  escChar = (e: KeyboardEvent): void => {
+    if (e.key === "Escape") {
+      document.removeEventListener("keydown", this.escChar);
+      document.removeEventListener("click", this.handleClickOutside);
+
+      this.setState({
+        edit: false,
+        newReminder: "",
+      });
+    }
+  };
+
   render() {
     const { r } = this.props;
     const { edit } = this.state;
@@ -124,13 +137,13 @@ class Reminder extends React.Component<Props, IState> {
               <div className="reminder-input-wrapper">
                 <form onSubmit={this.onSaveReminder}>
                   <input
+                    type="text"
                     value={this.state.newReminder}
                     onChange={this.editReminder}
                     ref={this.input}
                   />
-                  {/* <input type="submit" value="Save" /> */}
                 </form>
-                <button onClick={this.deleteReminder}>delete</button>
+                <button className="cross" onClick={this.deleteReminder} />
               </div>
             ) : (
               <>

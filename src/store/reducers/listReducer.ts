@@ -19,6 +19,9 @@ const initialState = {
   lists: [
     {
       name: "Welcome!"
+    },
+    {
+      name: "Double click to edit!"
     }
   ],
 };
