@@ -42,10 +42,11 @@ class List extends React.Component<Props, IState> {
     newList: "",
   };
 
-  deleteList = () => {
-    document.removeEventListener("keydown", this.escChar);
-    document.removeEventListener("click", this.handleClickOutside);
+  componentWillUnmount() {
+    this.removeListeners();
+  }
 
+  deleteList = () => {
     this.props.handleDeleteList(this.props.list);
     this.props.handleChangeList();
 
@@ -76,11 +77,8 @@ class List extends React.Component<Props, IState> {
       if (this.state.newList !== this.props.list.name) {
         this.onSaveList();
       } else {
-        this.setState({
-          edit: false,
-          newList: "",
-        });
-        document.removeEventListener("click", this.handleClickOutside);
+        this.setDefaultState();
+        // document.removeEventListener("click", this.handleClickOutside);
       }
     }
   };
@@ -104,26 +102,30 @@ class List extends React.Component<Props, IState> {
     this.props.handleChangeList(this.state.newList);
     // setstate
     if (e) {
-      this.setState({
-        edit: false,
-        newList: "",
-      });
+      this.setDefaultState();
     }
 
     // remove click listener
-    document.removeEventListener("click", this.handleClickOutside);
+    // document.removeEventListener("click", this.handleClickOutside);
   };
 
   escChar = (e: KeyboardEvent): void => {
     if (e.key === "Escape") {
-      document.removeEventListener("keydown", this.escChar);
-      document.removeEventListener("click", this.handleClickOutside);
-
-      this.setState({
-        edit: false,
-        newList: "",
-      });
+      this.removeListeners();
+      this.setDefaultState();
     }
+  };
+
+  setDefaultState = (): void => {
+    this.setState({
+      edit: false,
+      newList: "",
+    });
+  };
+
+  removeListeners = (): void => {
+    document.removeEventListener("keydown", this.escChar);
+    document.removeEventListener("click", this.handleClickOutside);
   };
 
   render() {
