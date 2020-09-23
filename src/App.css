@@ -17,12 +17,30 @@ ul li {
   text-decoration: none;
 }
 
+/* =============== ALL =============== */
+
+h1 {
+  margin: 20px 0;
+}
+
 input[type="text"] {
   padding: 0 5px;
 }
 
-h1 {
-  margin: 20px 0;
+input[type="text"]:focus {
+  outline: 1px solid white;
+}
+
+.side-bar input[type="text"] {
+  background-color: #1a1d22;
+  color: white;
+  border: none;
+}
+
+.main input[type="text"] {
+  background-color: #282c34;
+  color: white;
+  border: none;
 }
 
 /* =============== MAIN HOLDER =============== */
