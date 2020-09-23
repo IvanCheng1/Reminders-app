@@ -9,8 +9,7 @@ import ListInput from "./ListInput";
 
 interface IProps {
   currentList: string;
-  updateCurrentList: (newList: string) => void;
-  handleChangeList: (nameOfList?: string) => void;
+  updateCurrentList: (newList?: string) => void;
 }
 
 interface IState {}
@@ -19,22 +18,15 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class ListsHolder extends React.Component<Props, IState> {
   render() {
-    const {
-      lists,
-      currentList,
-      updateCurrentList,
-      handleChangeList,
-    } = this.props;
+    const { lists, currentList, updateCurrentList } = this.props;
     return (
       <div className="side-bar">
-        <div className="search-bar" >
-          Search bar here
-        </div>
+        <div className="search-bar">Search bar here</div>
         <div className="lists-holder">
           {lists.lists.map((l) => (
             <List
               key={l.name}
-              handleChangeList={handleChangeList}
+              updateCurrentList={updateCurrentList}
               list={l}
               currentList={currentList}
             />

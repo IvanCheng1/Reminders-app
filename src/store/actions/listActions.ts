@@ -5,6 +5,7 @@ export const ADD_LIST = "ADD_LIST";
 export const GET_LISTS = "GET_LISTS";
 export const DELETE_LIST = "DELETE_LIST";
 export const EDIT_LIST = "EDIT_LIST";
+export const GET_FIRST_LIST = "GET_FIRST_LIST";
 
 interface addListAction {
   type: typeof ADD_LIST;
@@ -20,6 +21,11 @@ interface editListAction {
   type: typeof EDIT_LIST;
   newList: string;
   oldList: string;
+}
+
+interface getFirstListAction {
+  type: typeof GET_FIRST_LIST;
+  notThisList?: string;
 }
 
 const addListAction = (nameOfList: string): ListActionTypes => {
@@ -44,6 +50,13 @@ const editListAction = (newList: string, oldList: string): ListActionTypes => {
   };
 };
 
+const getFirstListAction = (notThisList?: string): ListActionTypes => {
+  return {
+    type: GET_FIRST_LIST,
+    notThisList,
+  };
+};
+
 export const handleAddList = (nameOfList: string) => {
   return (dispatch: Dispatch<ListActionTypes>) => {
     dispatch(addListAction(nameOfList));
@@ -62,4 +75,14 @@ export const handleEditList = (newList: string, oldList: string) => {
   };
 };
 
-export type ListActionTypes = addListAction | deleteListAction | editListAction;
+export const handleGetFirstList = (notThisList?: string) => {
+  return (dispatch: Dispatch<ListActionTypes>) => {
+    dispatch(getFirstListAction(notThisList));
+  };
+};
+
+export type ListActionTypes =
+  | addListAction
+  | deleteListAction
+  | editListAction
+  | getFirstListAction;

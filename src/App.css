@@ -21,6 +21,10 @@ input[type="text"] {
   padding: 0 5px;
 }
 
+h1 {
+  margin: 20px 0;
+}
+
 /* =============== MAIN HOLDER =============== */
 
 .main-holder {
@@ -91,10 +95,18 @@ input[type="text"] {
   background-color: rgba(255, 255, 255, 0);
   padding: 5px 10px;
   font-size: 1.2rem;
+  cursor: pointer;
+  transition: all ease 0.2s;
+}
+
+.list-holder:hover {
+  background-color: rgb(70, 70, 70);
+  transition: all ease-out 0.3s;
 }
 
 .list-holder.active {
   background-color: grey;
+  transition: all ease-out 0.5s;
 }
 
 .list-name {
@@ -106,6 +118,7 @@ input[type="text"] {
 
 .list-name form {
   width: 100%;
+  display: flex;
 }
 
 .list-name form input[type="text"] {

@@ -23,44 +23,32 @@ class App extends React.Component<Props, IState> {
   };
 
   componentDidMount() {
-    // set default list if available
-    if (this.props.lists.lists.length > 0) {
-      this.setState({
-        currentList: this.props.lists.lists[0].name,
-      });
-    }
+    const defaultList = this.props.lists.lists[0].name;
+    this.setState({
+      currentList: defaultList,
+    });
   }
 
-  updateCurrentList = (newList: string): void => {
-    // for ListInput
+  updateCurrentList = (newList?: string): void => {
+    const { currentList } = this.state;
+    const { lists } = this.props;
 
-    this.setState({
-      currentList: newList,
-    });
-  };
-
-  handleChangeList = (nameOfList?: string): void => {
-    // for List
-    let listToSet: string;
-
-    if (nameOfList) {
-      // argument provided => change to that list
-      listToSet = nameOfList;
-    } else if (this.props.lists.lists.length > 1) {
-      // no argument => change to the first list if available
-      listToSet = this.props.lists.lists[0].name;
+    // for ListInput and List
+    if (newList) {
+      this.setState({
+        currentList: newList,
+      });
     } else {
-      // no more lists
-      listToSet = "";
+      const defaultList = lists.lists.filter((l) => l.name !== currentList);
+      this.setState({
+        currentList: defaultList[0].name,
+      });
     }
-
-    this.setState({
-      currentList: listToSet,
-    });
   };
 
   render() {
     const { currentList } = this.state;
+    // console.log("currentList", currentList)
     return (
       <div className="App">
         <h1>Reminders</h1>
@@ -68,7 +56,7 @@ class App extends React.Component<Props, IState> {
           <ListsHolder
             currentList={currentList}
             updateCurrentList={this.updateCurrentList}
-            handleChangeList={this.handleChangeList}
+            // handleChangeList={this.handleChangeList}
           />
           <RemindersHolder currentList={currentList} />
         </div>

@@ -12,11 +12,11 @@ import {
   handleEditListForReminders,
 } from "../store/actions/remindersActions";
 import { rootState } from "../store/reducers";
-import { IList } from "../store/reducers/listReducer";
+import { IList, listState } from "../store/reducers/listReducer";
 import { remindersState } from "../store/reducers/remindersReducer";
 
 interface IProps {
-  handleChangeList: (nameOfList?: string) => void;
+  updateCurrentList: (newList?: string) => void;
   list: IList;
   currentList: string;
 }
@@ -31,10 +31,12 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class List extends React.Component<Props, IState> {
   wrapper: React.RefObject<HTMLDivElement>;
   input: React.RefObject<HTMLInputElement>;
+  button: React.RefObject<HTMLButtonElement>;
   constructor(props: Props) {
     super(props);
     this.wrapper = React.createRef<HTMLDivElement>();
     this.input = React.createRef<HTMLInputElement>();
+    this.button = React.createRef<HTMLButtonElement>();
   }
 
   state: IState = {
@@ -46,10 +48,20 @@ class List extends React.Component<Props, IState> {
     this.removeListeners();
   }
 
-  deleteList = () => {
-    this.props.handleDeleteList(this.props.list);
-    this.props.handleChangeList();
+  handleClickOnList = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ): void => {
+    if (this.button && !this.button.current?.contains(e.target as Node)) {
+      // not the delete button
+      this.props.updateCurrentList(this.props.list.name);
+    }
+  };
 
+  deleteList = () => {
+    // update the current list
+    this.props.updateCurrentList();
+    // delete list from store
+    this.props.handleDeleteList(this.props.list);
     // delete reminders from that list!
     this.props.handleDeleteRemindersFromList(this.props.list.name);
   };
@@ -99,7 +111,7 @@ class List extends React.Component<Props, IState> {
     // save list to store
     this.props.handleEditList(this.state.newList, this.props.list.name);
     // update default list
-    this.props.handleChangeList(this.state.newList);
+    this.props.updateCurrentList(this.state.newList);
     // setstate
     if (e) {
       this.setDefaultState();
@@ -126,7 +138,7 @@ class List extends React.Component<Props, IState> {
   };
 
   render() {
-    const { currentList, list, handleChangeList, reminders } = this.props;
+    const { currentList, list, reminders } = this.props;
     return (
       <>
         <div
@@ -134,7 +146,7 @@ class List extends React.Component<Props, IState> {
           className={
             currentList === list.name ? "list-holder active" : "list-holder"
           }
-          onClick={() => handleChangeList(list.name)}
+          onClick={this.handleClickOnList}
         >
           {this.state.edit ? (
             <div className="list-name">
@@ -145,9 +157,12 @@ class List extends React.Component<Props, IState> {
                   onChange={this.editList}
                   ref={this.input}
                 />
-                {/* <input type="submit" value="Save" /> */}
               </form>
-              <button className="cross" onClick={this.deleteList} />
+              <button
+                ref={this.button}
+                className="cross"
+                onClick={this.deleteList}
+              />
             </div>
           ) : (
             <div
@@ -168,6 +183,7 @@ class List extends React.Component<Props, IState> {
 
 interface LinkStateProps {
   reminders: remindersState;
+  lists: listState;
 }
 
 interface LinkDispatchProps {
@@ -182,6 +198,7 @@ const mapStateToProps = (
   ownProps: IProps
 ): LinkStateProps => ({
   reminders: state.reminders,
+  lists: state.lists,
 });
 
 const mapDispatchToProps = (
