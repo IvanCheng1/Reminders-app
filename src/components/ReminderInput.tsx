@@ -33,7 +33,7 @@ function ReminderInput({ handleAddReminder, currentList }: Props) {
       alert("Please enter a reminder");
       return;
     }
-    handleAddReminder(reminder, currentList);
+    handleAddReminder(reminder.trim(), currentList);
     setReminder("");
   };
 

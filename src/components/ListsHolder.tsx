@@ -19,19 +19,27 @@ type Props = IProps & LinkStateProps & LinkDispatchProps;
 class ListsHolder extends React.Component<Props, IState> {
   render() {
     const { lists, currentList, updateCurrentList } = this.props;
+    const numberOfLists = lists.lists.length;
     return (
       <div className="side-bar">
-        <div className="search-bar">Search bar here</div>
-        <div className="lists-holder">
-          {lists.lists.map((l) => (
-            <List
-              key={l.name}
-              updateCurrentList={updateCurrentList}
-              list={l}
-              currentList={currentList}
-            />
-          ))}
-        </div>
+        {/* <div className="search-bar">Search bar here</div> */}
+        {numberOfLists ? (
+          <>
+            <div className="label-my-lists">My Lists</div>
+            <div className="lists-holder">
+              {lists.lists.map((l) => (
+                <List
+                  key={l.name}
+                  updateCurrentList={updateCurrentList}
+                  list={l}
+                  currentList={currentList}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="reminders-empty">Create a List First!</div>
+        )}
         <ListInput
           updateCurrentList={updateCurrentList}
           currentList={currentList}

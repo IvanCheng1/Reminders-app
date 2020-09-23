@@ -32,6 +32,10 @@ class RemindersHolder extends React.Component<Props, IState> {
     const remindersCompletedCount = reminders.reminders.filter(
       (r) => r.for === currentList && r.completed === true
     ).length;
+    
+    if (currentList === "") {
+      return <div className="main"></div>;
+    }
     return (
       <div className="main">
         <div className="reminders-page-holder">

@@ -40,9 +40,15 @@ class App extends React.Component<Props, IState> {
       });
     } else {
       const defaultList = lists.lists.filter((l) => l.name !== currentList);
-      this.setState({
-        currentList: defaultList[0].name,
-      });
+      if (defaultList[0]) {
+        this.setState({
+          currentList: defaultList[0].name,
+        });
+      } else {
+        this.setState({
+          currentList: "",
+        });
+      }
     }
   };
 

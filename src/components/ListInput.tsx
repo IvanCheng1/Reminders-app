@@ -24,7 +24,7 @@ function ListInput({ handleAddList, updateCurrentList }: Props) {
       alert("Please enter a list");
       return;
     }
-    handleAddList(list);
+    handleAddList(list.trim());
     setList("");
 
     // check if a list is selected
