@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import {
   addReminderToLocalStorage,
+  deleteReminderFromLocalStorage,
   setReminderToLocalStorage,
 } from "../../utils/api";
 // import { rootState } from "../reducers";
@@ -152,6 +153,7 @@ export const handleSetReminder = (reminder: IReminder, list: string) => {
 export const handleDeleteReminder = (reminder: IReminder) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(deleteReminderAction(reminder));
+    deleteReminderFromLocalStorage(reminder)
   };
 };
 

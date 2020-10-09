@@ -71,6 +71,7 @@ const getLocalStorageList = (key: string): listState => {
 
 export const getRemindersFromLocalStorage = (): remindersState => {
   checkRemindersLocalStorage();
+  // setLocalStorageReminder(initialRemindersState)
   return getLocalStorageReminder();
 };
 
@@ -106,6 +107,18 @@ export const setReminderToLocalStorage = (
       }
       return r;
     }),
+  };
+  setLocalStorageReminder(reminders);
+};
+
+export const deleteReminderFromLocalStorage = (reminder: IReminder): void => {
+  const reminders = {
+    reminders: getLocalStorageReminder().reminders.filter(
+      (r) =>
+        r.reminder !== reminder.reminder ||
+        r.for !== reminder.for ||
+        r.completed !== reminder.completed
+    ),
   };
   setLocalStorageReminder(reminders);
 };
