@@ -16,26 +16,22 @@ export const LISTS_STORAGE_KEY = "LISTS_STORAGE_KEY";
 
 export const getListsFromLocalStorage = (): listState => {
   checkListsLocalStorage();
-  return getLocalStorageList(LISTS_STORAGE_KEY);
+  // setLocalStorageList(initialListState)
+  return getLocalStorageList();
 };
 
 export const addListToLocalStorage = (nameOfList: string): void => {
   const lists = {
-    lists: [
-      ...getLocalStorageList(LISTS_STORAGE_KEY).lists,
-      { name: nameOfList },
-    ],
+    lists: [...getLocalStorageList().lists, { name: nameOfList }],
   };
-  setLocalStorageList(lists, LISTS_STORAGE_KEY);
+  setLocalStorageList(lists);
 };
 
 export const deleteListFromLocalStorage = (list: IList): void => {
   const lists = {
-    lists: getLocalStorageList(LISTS_STORAGE_KEY).lists.filter(
-      (l) => l.name !== list.name
-    ),
+    lists: getLocalStorageList().lists.filter((l) => l.name !== list.name),
   };
-  setLocalStorageList(lists, LISTS_STORAGE_KEY);
+  setLocalStorageList(lists);
 };
 
 export const editListFromLocalStorage = (
@@ -43,28 +39,28 @@ export const editListFromLocalStorage = (
   oldList: string
 ): void => {
   const lists = {
-    lists: getLocalStorageList(LISTS_STORAGE_KEY).lists.map((l) => {
+    lists: getLocalStorageList().lists.map((l) => {
       if (l.name === oldList) {
         l.name = newList;
       }
       return l;
     }),
   };
-  setLocalStorageList(lists, LISTS_STORAGE_KEY);
+  setLocalStorageList(lists);
 };
 
 const checkListsLocalStorage = (): void => {
   if (localStorage.getItem(LISTS_STORAGE_KEY) === null) {
-    setLocalStorageList(initialListState, LISTS_STORAGE_KEY);
+    setLocalStorageList(initialListState);
   }
 };
 
-const setLocalStorageList = (items: listState, key: string): void => {
-  localStorage.setItem(key, JSON.stringify(items));
+const setLocalStorageList = (items: listState): void => {
+  localStorage.setItem(LISTS_STORAGE_KEY, JSON.stringify(items));
 };
 
-const getLocalStorageList = (key: string): listState => {
-  return JSON.parse(localStorage.getItem(key) || "{}");
+const getLocalStorageList = (): listState => {
+  return JSON.parse(localStorage.getItem(LISTS_STORAGE_KEY) || "{}");
 };
 
 // ====================== REMINDER ======================
@@ -119,6 +115,60 @@ export const deleteReminderFromLocalStorage = (reminder: IReminder): void => {
         r.for !== reminder.for ||
         r.completed !== reminder.completed
     ),
+  };
+  setLocalStorageReminder(reminders);
+};
+
+export const deleteRemindersFromListFromLocalStorage = (list: string): void => {
+  const reminders = {
+    reminders: getLocalStorageReminder().reminders.filter(
+      (r) => r.for !== list
+    ),
+  };
+  setLocalStorageReminder(reminders);
+};
+
+export const deleteCompletedRemindersFromListFromLocalStorage = (
+  list: string
+): void => {
+  const reminders = {
+    reminders: getLocalStorageReminder().reminders.filter((r) => {
+      if (r.for === list && r.completed === true) {
+        return false;
+      }
+      return true;
+    }),
+  };
+  setLocalStorageReminder(reminders);
+};
+
+export const editReminderForLocalStorage = (
+  newReminder: string,
+  oldReminder: string,
+  list: string
+): void => {
+  const reminders = {
+    reminders: getLocalStorageReminder().reminders.map((r) => {
+      if (r.reminder === oldReminder && r.for === list) {
+        r.reminder = newReminder;
+      }
+      return r;
+    }),
+  };
+  setLocalStorageReminder(reminders);
+};
+
+export const editListForRemindersForLocalStorage = (
+  newList: string,
+  oldList: string
+): void => {
+  const reminders = {
+    reminders: getLocalStorageReminder().reminders.map((r) => {
+      if (r.for === oldList) {
+        r.for = newList;
+      }
+      return r;
+    }),
   };
   setLocalStorageReminder(reminders);
 };

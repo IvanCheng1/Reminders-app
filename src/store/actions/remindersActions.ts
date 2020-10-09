@@ -1,7 +1,11 @@
 import { Dispatch } from "redux";
 import {
   addReminderToLocalStorage,
+  deleteCompletedRemindersFromListFromLocalStorage,
   deleteReminderFromLocalStorage,
+  deleteRemindersFromListFromLocalStorage,
+  editListForRemindersForLocalStorage,
+  editReminderForLocalStorage,
   setReminderToLocalStorage,
 } from "../../utils/api";
 // import { rootState } from "../reducers";
@@ -160,12 +164,14 @@ export const handleDeleteReminder = (reminder: IReminder) => {
 export const handleDeleteRemindersFromList = (list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(deleteRemindersFromListAction(list));
+    deleteRemindersFromListFromLocalStorage(list)
   };
 };
 
 export const handleDeleteCompletedRemindersFromList = (list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(deleteCompletedRemindersFromList(list));
+    deleteCompletedRemindersFromListFromLocalStorage(list)
   };
 };
 
@@ -188,6 +194,7 @@ export const handleEditReminder = (
 ) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(editReminder(newReminder, oldReminder, list));
+    editReminderForLocalStorage(newReminder, oldReminder, list)
   };
 };
 
@@ -197,6 +204,7 @@ export const handleEditListForReminders = (
 ) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(editListForReminders(newList, oldList));
+    editListForRemindersForLocalStorage(newList, oldList)
   };
 };
 
