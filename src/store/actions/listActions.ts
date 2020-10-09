@@ -1,8 +1,8 @@
 import { Dispatch } from "redux";
+import { addListToLocalStorage } from "../../utils/api";
 import { IList } from "../reducers/listReducer";
 
 export const ADD_LIST = "ADD_LIST";
-export const GET_LISTS = "GET_LISTS";
 export const DELETE_LIST = "DELETE_LIST";
 export const EDIT_LIST = "EDIT_LIST";
 export const GET_FIRST_LIST = "GET_FIRST_LIST";
@@ -60,6 +60,7 @@ const getFirstListAction = (notThisList?: string): ListActionTypes => {
 export const handleAddList = (nameOfList: string) => {
   return (dispatch: Dispatch<ListActionTypes>) => {
     dispatch(addListAction(nameOfList));
+    addListToLocalStorage(nameOfList);
   };
 };
 

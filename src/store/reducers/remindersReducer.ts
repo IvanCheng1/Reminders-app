@@ -24,16 +24,16 @@ export interface remindersState {
 
 const initialState = {
   reminders: [
-    {
-      reminder: "Hello World!",
-      completed: false,
-      for: "Welcome!",
-    },
-    {
-      reminder: "Double click me to edit the reminder",
-      completed: false,
-      for: "Welcome!",
-    },
+    // {
+    //   reminder: "Hello World!",
+    //   completed: false,
+    //   for: "Welcome!",
+    // },
+    // {
+    //   reminder: "Double click me to edit the reminder",
+    //   completed: false,
+    //   for: "Welcome!",
+    // },
   ],
 };
 

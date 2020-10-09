@@ -1,6 +1,6 @@
 # 🚧 WIP - My Reminders Web App
 
-A reminders app using TypeScipt and React-Redux.
+A simple reminders app, built using TypeScipt and React-Redux.
 
 <p align="center">
   <img src="./src/gifs/example.gif" width='450'/>

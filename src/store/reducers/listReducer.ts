@@ -1,3 +1,4 @@
+import { getListsFromLocalStorage, getLocalStorage, LISTS_STORAGE_KEY } from "../../utils/api";
 import {
   ADD_LIST,
   DELETE_LIST,
@@ -15,19 +16,17 @@ export interface listState {
   lists: IList[];
 }
 
-const initialState = {
+export const initialListState = {
   lists: [
     {
-      name: "Welcome!"
+      name: "Welcome!",
     },
-    {
-      name: "Double click to edit!"
-    }
   ],
 };
 
 export default function listReducer(
-  state: listState = initialState,
+  // state: listState = initialListState,
+  state: listState = getListsFromLocalStorage(),
   action: ListActionTypes
 ): listState {
   switch (action.type) {
