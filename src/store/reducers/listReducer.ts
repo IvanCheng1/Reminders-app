@@ -1,4 +1,4 @@
-import { getListsFromLocalStorage, getLocalStorage, LISTS_STORAGE_KEY } from "../../utils/api";
+import { getListsFromLocalStorage } from "../../utils/api";
 import {
   ADD_LIST,
   DELETE_LIST,

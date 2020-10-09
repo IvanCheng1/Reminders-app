@@ -23,7 +23,11 @@ class App extends React.Component<Props, IState> {
   };
 
   componentDidMount() {
-    const defaultList = this.props.lists.lists[0].name;
+    let defaultList = "";
+    if (this.props.lists.lists.length > 0) {
+      defaultList = this.props.lists.lists[0].name;
+    }
+
     this.setState({
       currentList: defaultList,
     });
