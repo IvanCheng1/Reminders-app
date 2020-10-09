@@ -1,4 +1,8 @@
 import { Dispatch } from "redux";
+import {
+  addReminderToLocalStorage,
+  setReminderToLocalStorage,
+} from "../../utils/api";
 // import { rootState } from "../reducers";
 import { IReminder } from "../reducers/remindersReducer";
 
@@ -25,7 +29,7 @@ interface addReminderAction {
 interface setReminderAction {
   type: typeof SET_REMINDER;
   reminder: IReminder;
-  list: string,
+  list: string;
 }
 
 interface deleteReminderAction {
@@ -73,7 +77,10 @@ const addReminderAction = (
 //   }
 // }
 
-const setReminderAction = (reminder: IReminder, list: string): ReminderActionTypes => {
+const setReminderAction = (
+  reminder: IReminder,
+  list: string
+): ReminderActionTypes => {
   return {
     type: SET_REMINDER,
     reminder,
@@ -131,12 +138,14 @@ const deleteCompletedRemindersFromList = (
 export const handleAddReminder = (reminder: string, forList: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(addReminderAction(reminder, forList));
+    addReminderToLocalStorage(reminder, forList);
   };
 };
 
 export const handleSetReminder = (reminder: IReminder, list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(setReminderAction(reminder, list));
+    setReminderToLocalStorage(reminder, list);
   };
 };
 

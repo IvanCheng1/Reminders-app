@@ -1,3 +1,4 @@
+import { getRemindersFromLocalStorage } from "../../utils/api";
 import {
   ADD_REMINDER,
   DELETE_COMPLETED_REMINDERS_FROM_LIST,
@@ -22,23 +23,24 @@ export interface remindersState {
   reminders: IReminder[];
 }
 
-const initialState = {
+export const initialRemindersState = {
   reminders: [
-    // {
-    //   reminder: "Hello World!",
-    //   completed: false,
-    //   for: "Welcome!",
-    // },
-    // {
-    //   reminder: "Double click me to edit the reminder",
-    //   completed: false,
-    //   for: "Welcome!",
-    // },
+    {
+      reminder: "Hello World!",
+      completed: false,
+      for: "Welcome!",
+    },
+    {
+      reminder: "Double click me to edit the reminder",
+      completed: false,
+      for: "Welcome!",
+    },
   ],
 };
 
 export default function remindersReducer(
-  state: remindersState = initialState,
+  // state: remindersState = initialRemindersState,
+  state: remindersState = getRemindersFromLocalStorage(),
   action: ReminderActionTypes
 ): remindersState {
   switch (action.type) {
