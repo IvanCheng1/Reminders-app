@@ -6,7 +6,6 @@ import {
   DELETE_REMINDERS_FROM_LIST,
   EDIT_LIST_FOR_REMINDERS,
   EDIT_REMINDER,
-  // GET_REMINDERS,
   ReminderActionTypes,
   SET_REMINDER,
 } from "../actions/remindersActions";
@@ -39,7 +38,6 @@ export const initialRemindersState = {
 };
 
 export default function remindersReducer(
-  // state: remindersState = initialRemindersState,
   state: remindersState = getRemindersFromLocalStorage(),
   action: ReminderActionTypes
 ): remindersState {

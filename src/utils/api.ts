@@ -10,7 +10,7 @@ import {
 } from "../store/reducers/remindersReducer";
 
 const REMINDERS_STORAGE_KEY = "REMINDERS_STORAGE_KEY";
-export const LISTS_STORAGE_KEY = "LISTS_STORAGE_KEY";
+const LISTS_STORAGE_KEY = "LISTS_STORAGE_KEY";
 
 // ====================== LIST ======================
 

@@ -25,7 +25,6 @@ export const initialListState = {
 };
 
 export default function listReducer(
-  // state: listState = initialListState,
   state: listState = getListsFromLocalStorage(),
   action: ListActionTypes
 ): listState {

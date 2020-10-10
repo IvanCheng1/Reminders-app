@@ -8,11 +8,9 @@ import {
   editReminderForLocalStorage,
   setReminderToLocalStorage,
 } from "../../utils/api";
-// import { rootState } from "../reducers";
 import { IReminder } from "../reducers/remindersReducer";
 
 export const ADD_REMINDER = "ADD_REMINDER";
-export const GET_REMINDERS = "GET_REMINDERS";
 export const SET_REMINDER = "SET_REMINDER";
 export const DELETE_REMINDER = "DELETE_REMINDER";
 export const DELETE_REMINDERS_FROM_LIST = "DELETE_REMINDERS_FROM_LIST";
@@ -25,11 +23,6 @@ interface addReminderAction {
   type: typeof ADD_REMINDER;
   reminder: IReminder;
 }
-
-// interface getRemindersAction {
-//   type: typeof GET_REMINDERS;
-//   // reminder: IReminder[];
-// }
 
 interface setReminderAction {
   type: typeof SET_REMINDER;
@@ -74,13 +67,6 @@ const addReminderAction = (
     reminder: { reminder, completed: false, for: forList },
   };
 };
-
-// const getRemindersAction = (): ReminderActionTypes => {
-//   return {
-//     type: GET_REMINDERS,
-//     // reminder: []
-//   }
-// }
 
 const setReminderAction = (
   reminder: IReminder,
@@ -157,35 +143,23 @@ export const handleSetReminder = (reminder: IReminder, list: string) => {
 export const handleDeleteReminder = (reminder: IReminder) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(deleteReminderAction(reminder));
-    deleteReminderFromLocalStorage(reminder)
+    deleteReminderFromLocalStorage(reminder);
   };
 };
 
 export const handleDeleteRemindersFromList = (list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(deleteRemindersFromListAction(list));
-    deleteRemindersFromListFromLocalStorage(list)
+    deleteRemindersFromListFromLocalStorage(list);
   };
 };
 
 export const handleDeleteCompletedRemindersFromList = (list: string) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(deleteCompletedRemindersFromList(list));
-    deleteCompletedRemindersFromListFromLocalStorage(list)
+    deleteCompletedRemindersFromListFromLocalStorage(list);
   };
 };
-
-// export const handleGetReminders = () => {
-//   return (dispatch: Dispatch<ReminderActionTypes>) => {
-//     dispatch(getRemindersAction())
-//   }
-// }
-
-// export const handleAddReminderWState = (reminder: string) => {
-//   return (dispatch: Dispatch<ReminderActionTypes>, getState: () => rootState) => {
-//     dispatch(addReminderAction(reminder))
-//   }
-// }
 
 export const handleEditReminder = (
   newReminder: string,
@@ -194,7 +168,7 @@ export const handleEditReminder = (
 ) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(editReminder(newReminder, oldReminder, list));
-    editReminderForLocalStorage(newReminder, oldReminder, list)
+    editReminderForLocalStorage(newReminder, oldReminder, list);
   };
 };
 
@@ -204,13 +178,12 @@ export const handleEditListForReminders = (
 ) => {
   return (dispatch: Dispatch<ReminderActionTypes>) => {
     dispatch(editListForReminders(newList, oldList));
-    editListForRemindersForLocalStorage(newList, oldList)
+    editListForRemindersForLocalStorage(newList, oldList);
   };
 };
 
 export type ReminderActionTypes =
   | addReminderAction
-  // | getRemindersAction
   | setReminderAction
   | deleteReminderAction
   | deleteRemindersFromListAction
