@@ -1,6 +1,6 @@
-# 🚧 WIP - My Reminders Web App
+# My Reminders Web App
 
-A simple reminders app, built using TypeScipt and React-Redux.
+A simple reminders app, built using TypeScipt, React and React-Redux. Reminders are saved to Local Storage.
 
 <p align="center">
   <img src="./src/gifs/example.gif" width='450'/>
