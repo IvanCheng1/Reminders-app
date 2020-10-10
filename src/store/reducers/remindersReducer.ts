@@ -30,7 +30,7 @@ export const initialRemindersState = {
       for: "Welcome!",
     },
     {
-      reminder: "Double click me to edit the reminder",
+      reminder: "Double click me to edit",
       completed: false,
       for: "Welcome!",
     },
@@ -42,19 +42,12 @@ export default function remindersReducer(
   action: ReminderActionTypes
 ): remindersState {
   switch (action.type) {
-    // case GET_REMINDERS:
-    //   console.log(GET_REMINDERS, state);
-    //   return {
-    //     ...state,
-    //   }
     case ADD_REMINDER:
-      // console.log(ADD_REMINDER, state);
       return {
         ...state,
         reminders: [...state.reminders, action.reminder],
       };
     case SET_REMINDER:
-      // console.log(SET_REMINDER, state);
       return {
         ...state,
         reminders: state.reminders.map((r) => {
@@ -71,19 +64,16 @@ export default function remindersReducer(
         }),
       };
     case DELETE_REMINDER:
-      // console.log(DELETE_REMINDER, state);
       return {
         ...state,
         reminders: state.reminders.filter((r) => r !== action.reminder),
       };
     case DELETE_REMINDERS_FROM_LIST:
-      // console.log(DELETE_REMINDERS_FROM_LIST, state);
       return {
         ...state,
         reminders: state.reminders.filter((r) => r.for !== action.list),
       };
     case DELETE_COMPLETED_REMINDERS_FROM_LIST:
-      // console.log(DELETE_COMPLETED_REMINDERS_FROM_LIST, state);
       return {
         ...state,
         reminders: state.reminders.filter((r) => {
@@ -94,7 +84,6 @@ export default function remindersReducer(
         }),
       };
     case EDIT_REMINDER:
-      // console.log(EDIT_REMINDER, state);
       return {
         ...state,
         reminders: state.reminders.map((r) => {
@@ -105,7 +94,6 @@ export default function remindersReducer(
         }),
       };
     case EDIT_LIST_FOR_REMINDERS:
-      // console.log(EDIT_LIST_FOR_REMINDERS, state);
       return {
         ...state,
         reminders: state.reminders.map((r) => {
@@ -116,7 +104,6 @@ export default function remindersReducer(
         }),
       };
     default:
-      // console.log("default case");
       return state;
   }
 }

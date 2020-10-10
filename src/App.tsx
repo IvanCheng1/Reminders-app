@@ -58,7 +58,6 @@ class App extends React.Component<Props, IState> {
 
   render() {
     const { currentList } = this.state;
-    // console.log("currentList", currentList)
     return (
       <div className="App">
         <h1>Reminders</h1>
@@ -66,7 +65,6 @@ class App extends React.Component<Props, IState> {
           <ListsHolder
             currentList={currentList}
             updateCurrentList={this.updateCurrentList}
-            // handleChangeList={this.handleChangeList}
           />
           <RemindersHolder currentList={currentList} />
         </div>

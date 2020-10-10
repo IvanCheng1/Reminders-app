@@ -30,19 +30,16 @@ export default function listReducer(
 ): listState {
   switch (action.type) {
     case ADD_LIST:
-      // console.log(ADD_LIST, state);
       return {
         ...state,
         lists: [...state.lists, action.list],
       };
     case DELETE_LIST:
-      // console.log(DELETE_LIST, state);
       return {
         ...state,
         lists: state.lists.filter((l) => l.name !== action.list.name),
       };
     case EDIT_LIST:
-      // console.log(EDIT_LIST, state);
       return {
         ...state,
         lists: state.lists.map((l) => {
@@ -53,7 +50,6 @@ export default function listReducer(
         }),
       };
     default:
-      // console.log("default case");
       return state;
   }
 }
